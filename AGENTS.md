@@ -4,13 +4,13 @@
 
 Promptify is a Markdown-first workflow package for Claude Code and Codex. It turns short developer intent into structured, platform-aware coding task briefs.
 
-This repository currently contains product documentation, shared prompt/workflow rules, and thin platform adapters. It does not contain a runtime service, package manager setup, web UI, database, telemetry, or MCP server.
+This repository contains product documentation, shared prompt/workflow rules, thin platform adapters, and may include a lightweight local NPM CLI for install/update/uninstall workflows. It must not contain a runtime service, web UI, database, telemetry, or MCP server.
 
 ## Repository Map
 
 - `prd/promptify-prd.md`: Product requirements and MVP acceptance criteria.
 - `docs/superpowers/plans/2026-05-13-promptify-mvp.md`: Implementation plan used to build the MVP.
-- `shared/brief-standard.md`: Canonical generated brief fields, execution modes, and language rules.
+- `shared/brief-standard.md`: Compact generated brief blocks, execution modes, and language rules.
 - `shared/task-routing.md`: Task type cues, routing priority, and examples.
 - `shared/safety.md`: High-risk signals, safety levels, and confirmation behavior.
 - `shared/templates/*.md`: Core task templates for generic tasks, bugfixes, features, refactors, tests, reviews, docs, and planning.
@@ -32,6 +32,7 @@ This repository currently contains product documentation, shared prompt/workflow
 ## Safety And Scope
 
 - Do not add web UI, hosted service, cloud sync, telemetry, external database, or MCP indexing unless the PRD is updated.
+- NPM packaging is allowed only for local installation, update, uninstall, and verification workflows; keep Promptify's core behavior Markdown-first.
 - High-risk signals include deletion, migration, payment, permission, auth, security, production, mass update, rewrite, and purge.
 - High-risk or destructive work must start with analysis and require explicit confirmation before edits.
 - For review-only and plan-only workflows, do not imply files were changed unless edits were explicitly requested later.
@@ -41,14 +42,14 @@ This repository currently contains product documentation, shared prompt/workflow
 Run these checks after changing shared templates or adapters:
 
 ```bash
-rg -n "任务目标：|执行模式：|项目上下文：|执行要求：|边界限制：|验收标准：|验证方式：|最终汇报：" shared/templates
+rg -n "目标：|模式：|上下文：|要求：" shared/templates
 rg -n "analysis-first|prompt-only|review-only|plan-only|shared/templates" adapters
 rg -n "T[B]D|T[O]DO|implement late[r]|fill in detail[s]" shared adapters README.md AGENTS.md
 python3 -m json.tool adapters/claude-code/.claude-plugin/plugin.json
 git diff --check HEAD
 ```
 
-The unfinished-marker scan should produce no output. If a check is not relevant to the files you changed, state why in the final report.
+The core-block scan should find the compact required blocks in each template. The unfinished-marker scan should produce no output. If a check is not relevant to the files you changed, state why in the final report.
 
 ## Git Notes
 

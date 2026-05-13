@@ -100,6 +100,7 @@ The MVP must:
 - Offer a prompt-only mode for reuse, learning, or review.
 - Include task boundaries, verification requirements, and final reporting expectations.
 - Treat high-risk tasks conservatively.
+- Support optional local NPM CLI distribution for install, update, uninstall, and verification workflows without changing the Markdown-first core.
 
 ### 6.2 Non-Goals for MVP
 
@@ -112,6 +113,7 @@ The MVP will not include:
 - External database
 - MCP-based repository indexing
 - Automatic historical behavior learning
+- Hosted install service, telemetry, or background sync
 
 ## 7. Success Metrics
 
