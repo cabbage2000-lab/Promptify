@@ -16,13 +16,16 @@ Promptify turns brief developer prompts into structured, context-aware, platform
 
 ## Claude Code Usage
 
-Install or load the local adapter from:
+Install or load Promptify from the repository root:
 
 ```text
-adapters/claude-code/
+promptify/
 ```
 
-Claude Code plugin metadata uses component paths under `adapters/claude-code/`.
+Claude Code plugin metadata uses component paths under `adapters/claude-code/`,
+but that adapter depends on repository-root shared sources under `shared/`.
+Keep `adapters/claude-code/` and `shared/` together in the same repository-root
+context when loading or installing Promptify.
 
 Example commands:
 
@@ -35,11 +38,15 @@ Example commands:
 
 ## Codex Usage
 
-Use the Codex skill or fallback instructions from:
+Use the Codex skill or fallback instructions from the repository root:
 
 ```text
-adapters/codex/
+promptify/
 ```
+
+The Codex adapter lives under `adapters/codex/`, but its instructions reference
+repository-root shared sources under `shared/`. Keep `adapters/codex/` and
+`shared/` together in the same repository-root context when loading Promptify.
 
 When slash commands are unavailable, use command-like text:
 

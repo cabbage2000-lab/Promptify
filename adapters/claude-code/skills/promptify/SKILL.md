@@ -9,7 +9,7 @@ Use Promptify when the user invokes `/promptify` commands or asks to convert a s
 
 ## Shared Sources
 
-Consult these shared files:
+Consult these repository-root shared files:
 
 - `shared/brief-standard.md`
 - `shared/task-routing.md`

@@ -9,7 +9,7 @@ Use Promptify when the user invokes a Promptify-like workflow or asks to convert
 
 ## Shared Sources
 
-repository-root shared sources:
+Consult these repository-root shared sources:
 
 - `shared/brief-standard.md`
 - `shared/task-routing.md`
