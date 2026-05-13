@@ -9,7 +9,7 @@ Use Promptify when the user invokes a Promptify-like workflow or asks to convert
 
 ## Shared Sources
 
-Consult these shared files:
+repository-root shared sources:
 
 - `shared/brief-standard.md`
 - `shared/task-routing.md`
@@ -26,7 +26,10 @@ Consult these shared files:
 - Use prompt-only behavior when the user asks to generate a reusable brief.
 - Use analysis-first mode for high-risk signals.
 - Do not perform destructive edits without explicit confirmation.
-- Final reports must include changed files, behavior changes, verification result, risks, and follow-ups.
+- Editing/direct execution modes must report changed files, behavior changes, verification result, risks, and follow-ups.
+- Prompt-only mode must output the generated brief and stop.
+- Review-only mode must lead with findings, include file/line references where possible, and omit a changed-file summary unless edits were explicitly requested later.
+- Plan-only mode must report the staged plan, risks, tests, and rollout notes, and omit a changed-file summary unless edits were explicitly requested later.
 
 ## Command-Like Invocation
 
