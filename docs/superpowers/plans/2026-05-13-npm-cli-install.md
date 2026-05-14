@@ -1038,7 +1038,7 @@ Update `README.md` installation section to include:
 推荐安装：
 
 ```bash
-npm install -g promptify
+npm install -g .
 promptify install
 promptify doctor
 ```

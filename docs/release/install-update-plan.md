@@ -21,13 +21,15 @@ promptify/
 
 ## 用户安装流程
 
-推荐通过 NPM 全局 CLI 安装：
+推荐从 Promptify 仓库根目录安装本地 NPM 全局 CLI：
 
 ```bash
-npm install -g promptify
+npm install -g .
 promptify install --host=claude-code,codex
 promptify doctor
 ```
+
+NPM registry 上的 `promptify` 包不是本项目；直接运行 `npm install -g promptify` 会安装另一个不提供 `promptify` 命令的包。
 
 `promptify install --host=...` 让用户选择 Claude Code、Codex 或两者。CLI 会将 Promptify 资源复制到 `~/.promptify/current/`，并向所选宿主配置写入 Promptify-managed block：Claude Code 使用 `~/.claude/CLAUDE.md`，Codex 使用 `~/.codex/AGENTS.md`。写入时保留已有用户内容，只替换 managed block；如果目标配置已存在，会先在 `~/.promptify/backups/` 下创建备份。
 

@@ -8,7 +8,7 @@ Promptify 当前是 Markdown-first workflow package，核心价值在 `shared/` 
 
 ## 目标
 
-- 支持 `npm install -g promptify` 安装全局 CLI。
+- 支持从仓库根目录运行 `npm install -g .` 安装全局 CLI。
 - 支持 `promptify install` 交互式选择 Claude Code、Codex 或两者。
 - 在用户确认后自动写入所选宿主配置。
 - 写配置前展示变更摘要，写配置前创建备份。
@@ -30,7 +30,7 @@ Promptify 当前是 Markdown-first workflow package，核心价值在 `shared/` 
 安装 CLI：
 
 ```bash
-npm install -g promptify
+npm install -g .
 ```
 
 交互安装：
@@ -214,7 +214,7 @@ promptify version
 
 README 需要包含：
 
-- `npm install -g promptify`
+- `npm install -g .`
 - `promptify install`
 - `promptify update`
 - `promptify uninstall`
