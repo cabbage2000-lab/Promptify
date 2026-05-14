@@ -126,6 +126,28 @@ test('runCli dispatches install with temporary home directory', async () => {
   assert.match(config, /Promptify for Codex/);
 });
 
+test('installCommand registers the Codex adapter as a discoverable skill', async () => {
+  const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-codex-skill-'));
+  const packageRoot = process.cwd();
+  const paths = createPaths({ homeDir, packageRoot });
+  const output = [];
+
+  const code = await installCommand(
+    { flags: { host: 'codex', yes: true } },
+    {
+      stdout: (line) => output.push(line),
+      stderr: (line) => output.push(line)
+    },
+    { homeDir, paths }
+  );
+
+  assert.equal(code, 0);
+
+  const skillPath = path.join(homeDir, '.codex', 'skills', 'promptify');
+  assert.match(await readFile(path.join(skillPath, 'SKILL.md'), 'utf8'), /Promptify for Codex/);
+  assert.match(output.join('\n'), /已注册 Codex skill/);
+});
+
 test('runCli fails cleanly for explicit empty host flag', async () => {
   const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-empty-host-'));
   const output = [];

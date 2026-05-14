@@ -98,6 +98,24 @@ test('doctorCommand reports Claude Code local plugin registration after install'
   assert.equal(output.some((line) => line.startsWith('OK claude plugin registration:')), true);
 });
 
+test('doctorCommand reports Codex skill registration after install', async () => {
+  const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-doctor-codex-skill-'));
+  const paths = createPaths({ homeDir, packageRoot: process.cwd() });
+  const output = [];
+  const io = {
+    stdout: (line) => output.push(line),
+    stderr: (line) => output.push(line)
+  };
+
+  await installCommand({ flags: { host: 'codex', yes: true } }, io, { homeDir, paths });
+  output.length = 0;
+
+  const code = await doctorCommand(io, { homeDir, paths });
+
+  assert.equal(code, 0);
+  assert.equal(output.some((line) => line.startsWith('OK codex skill registration:')), true);
+});
+
 test('doctorCommand prints failures and returns failure code', async () => {
   const output = [];
   const dir = await mkdtemp(path.join(os.tmpdir(), 'promptify-doctor-command-fail-'));

@@ -6,6 +6,7 @@ Use this file when Codex cannot load a dedicated Promptify command.
 
 - Guided prompt-first: `promptify: <short task>`
 - Prompt-only compatibility alias: `promptify generate: <short task>`
+- Goal prompt: `promptify goal: <long-running task>`
 - Review: `promptify review: <scope>`
 - Plan: `promptify plan: <feature or goal>`
 
@@ -25,6 +26,7 @@ Use this file when Codex cannot load a dedicated Promptify command.
 8. Do not edit files or run execution commands from the default invocation until the user confirms execution.
 9. Confirmed execution modes must report changed files, behavior changes, verification result, risks, and follow-ups.
 10. Prompt-only compatibility mode must output only the compact generated brief and stop.
-11. Review-only mode must lead with findings, include file/line references where possible, and omit a changed-file summary unless edits were explicitly requested later.
-12. Plan-only mode must report the staged plan, risks, tests, and rollout notes, and omit a changed-file summary unless edits were explicitly requested later.
-13. For high-risk inputs, start with analysis and request explicit confirmation before destructive edits.
+11. Goal-prompt mode must output exactly one `/goal` block from `shared/templates/goal.md` and stop; do not edit files, run commands, or ask whether to execute.
+12. Review-only mode must lead with findings, include file/line references where possible, and omit a changed-file summary unless edits were explicitly requested later.
+13. Plan-only mode must report the staged plan, risks, tests, and rollout notes, and omit a changed-file summary unless edits were explicitly requested later.
+14. For high-risk inputs, start with analysis and request explicit confirmation before destructive edits.

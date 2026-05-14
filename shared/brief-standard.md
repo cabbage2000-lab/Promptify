@@ -17,6 +17,10 @@ language:
 | 要求 | Requirements | Yes | Combine execution order, boundaries, acceptance, verification, and final report expectations. |
 | 安全门禁 | Safety Gate | Conditional | Include only for high-risk signals or destructive actions. |
 
+Promptify can also generate `/goal` prompts for long-running work. Goal prompts are
+not compact briefs; they are durable contracts for a host agent to keep working
+until a verifiable stopping condition is met.
+
 ## Compression Rules
 
 - Prefer 4 compact blocks: goal, mode, context, and requirements.
@@ -79,6 +83,16 @@ Plan-only mode:
 - Investigate relevant code and constraints when allowed by the host.
 - Produce a staged implementation plan.
 - Do not edit code unless the user explicitly asks to continue.
+
+Goal-prompt mode:
+- Use for `/promptify:goal <long-running task>`, `promptify goal: <long-running task>`, or direct requests to turn an intent into a `/goal` prompt.
+- Output only a `/goal` prompt block and stop.
+- Do not edit files, run execution commands, or continue into implementation.
+- Inspect project context only when the host mode explicitly allows read-only discovery for prompt generation.
+- Include one objective, a tight scope, hard constraints, verifiable done criteria, and stop conditions.
+- Prefer concrete files, commands, plans, issues, logs, or artifacts over vague success language.
+- Keep the goal larger than one normal prompt but smaller than an open-ended backlog.
+- For high-risk or destructive work, include a stop condition requiring explicit user confirmation before destructive edits.
 
 ## Language Rules
 - Match the generated brief language to the user's short task language.

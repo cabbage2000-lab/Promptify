@@ -30,6 +30,26 @@ test('update refreshes resources after install and runs doctor', async () => {
   assert.match(await readFile(path.join(paths.current, 'README.md'), 'utf8'), /Promptify/);
 });
 
+test('update refreshes the Codex discoverable skill when Codex is installed', async () => {
+  const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-update-codex-skill-'));
+  const paths = createPaths({ homeDir, packageRoot: process.cwd() });
+  const output = [];
+  const io = {
+    stdout: (line) => output.push(line),
+    stderr: (line) => output.push(line)
+  };
+  const skillPath = path.join(homeDir, '.codex', 'skills', 'promptify', 'SKILL.md');
+
+  await installCommand({ flags: { host: 'codex', yes: true } }, io, { homeDir, paths });
+  await writeFile(skillPath, 'stale skill\n', 'utf8');
+
+  const code = await updateCommand({ flags: {} }, io, { homeDir, paths });
+
+  assert.equal(code, 0);
+  assert.match(await readFile(skillPath, 'utf8'), /Promptify for Codex/);
+  assert.match(output.join('\n'), /已刷新 Codex skill/);
+});
+
 test('update refreshes the Claude Code local plugin when Claude Code is installed', async () => {
   const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-update-plugin-'));
   const paths = createPaths({ homeDir, packageRoot: process.cwd() });
@@ -113,6 +133,26 @@ test('uninstall removes the Claude Code local plugin registration', async () => 
   const after = JSON.parse(await readFile(installedPluginsPath, 'utf8'));
   assert.equal(after.plugins['promptify@promptify-local'], undefined);
   assert.match(output.join('\n'), /已移除 Claude Code 插件注册/);
+});
+
+test('uninstall removes the Codex discoverable skill registration', async () => {
+  const homeDir = await mkdtemp(path.join(os.tmpdir(), 'promptify-uninstall-codex-skill-'));
+  const paths = createPaths({ homeDir, packageRoot: process.cwd() });
+  const output = [];
+  const io = {
+    stdout: (line) => output.push(line),
+    stderr: (line) => output.push(line)
+  };
+  const skillPath = path.join(homeDir, '.codex', 'skills', 'promptify', 'SKILL.md');
+
+  await installCommand({ flags: { host: 'codex', yes: true } }, io, { homeDir, paths });
+  assert.equal(await pathExists(skillPath), true);
+
+  const code = await uninstallCommand({ flags: { host: 'codex' } }, io, { homeDir, paths });
+
+  assert.equal(code, 0);
+  assert.equal(await pathExists(skillPath), false);
+  assert.match(output.join('\n'), /已移除 Codex skill 注册/);
 });
 
 test('uninstall treats a missing config file as already absent', async () => {

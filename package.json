@@ -1,10 +1,10 @@
 {
-  "name": "promptify",
+  "name": "@wjl6339/promptify",
   "version": "0.1.0",
   "description": "Markdown-first task workflow package for Claude Code and Codex.",
   "type": "module",
   "bin": {
-    "promptify": "./bin/promptify.js"
+    "promptify": "bin/promptify.js"
   },
   "files": [
     "bin/",

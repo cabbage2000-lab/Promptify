@@ -9,7 +9,7 @@ Use Promptify when the user invokes a Promptify-like workflow or asks to convert
 
 ## Shared Sources
 
-Consult these repository-root shared sources:
+Consult these shared sources. When installed through `promptify install --host=codex`, use the paths from the Promptify-managed block in `~/.codex/AGENTS.md`; when running from the repository, use these repository-root paths:
 
 - `shared/brief-standard.md`
 - `shared/task-routing.md`
@@ -28,6 +28,7 @@ Consult these repository-root shared sources:
 - Default Promptify invocation to guided prompt-first behavior: output the compact brief, then ask whether to enter execution.
 - Do not edit files or run execution commands from the default invocation until the user confirms execution.
 - Keep `promptify generate:` as a prompt-only compatibility alias.
+- Use `promptify goal: <long-running task>` or requests for `/goal` prompt generation to output a Codex-ready `/goal` block from `shared/templates/goal.md` and stop.
 - Use analysis-first mode for high-risk signals.
 - Do not perform destructive edits without explicit confirmation.
 - Confirmed execution modes must report changed files, behavior changes, verification result, risks, and follow-ups.
@@ -41,5 +42,6 @@ When slash commands are unavailable, interpret user phrases like these as Prompt
 
 - `promptify: 修复登录失败提示`
 - `promptify generate: 重构订单状态计算逻辑` (compatibility alias)
+- `promptify goal: 完成 PLAN.md 的 MVP`
 - `promptify review: 当前改动`
 - `promptify plan: 支持团队模板覆盖`

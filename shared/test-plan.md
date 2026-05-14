@@ -54,7 +54,7 @@ npm test
 npm pack --dry-run
 node bin/promptify.js version
 rg -n "目标：|模式：|上下文：|要求：" shared/templates
-rg -n "analysis-first|prompt-only|review-only|plan-only|shared/templates" adapters
+rg -n "analysis-first|prompt-only|goal-prompt|review-only|plan-only|shared/templates" adapters
 rg -n "T[B]D|T[O]DO|implement late[r]|fill in detail[s]" shared adapters README.md AGENTS.md
 python3 -m json.tool adapters/claude-code/.claude-plugin/plugin.json
 git diff --check HEAD

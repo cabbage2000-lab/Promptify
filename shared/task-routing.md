@@ -13,6 +13,7 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | review, 审查, 看看代码, PR | review | `templates/review.md` |
 | 文档, README, 注释, docs | docs | `templates/docs.md` |
 | 规划, 方案, 设计, plan | plan | `templates/plan.md` |
+| /goal, goal, 长跑任务, 持久目标, 持续执行, 直到完成 | goal prompt | `templates/goal.md` |
 
 ## Priority
 
@@ -32,4 +33,6 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | `/promptify:review 当前改动` | review | review-only |
 | `/promptify 重构支付模块并补测试` | high-risk refactor | analysis-first |
 | `/promptify 删除旧支付模块` | high-risk task | analysis-first |
+| `/promptify:goal 完成 PLAN.md 的 MVP` | goal prompt | goal-prompt |
+| `promptify goal: 迁移旧测试到 node:test` | goal prompt | goal-prompt |
 | `/promptify 优化一下这个模块` | generic task | guided prompt-first or clarification |

@@ -26,6 +26,7 @@ Consult these repository-root shared files:
 - Default `/promptify` to guided prompt-first behavior: output the compact brief, then ask whether to enter execution.
 - Do not edit files or run execution commands from `/promptify` until the user confirms execution.
 - Keep `/promptify:generate` as a prompt-only compatibility alias.
+- Use `/promptify:goal <long-running task>` to generate a host-ready `/goal` prompt from `shared/templates/goal.md`; output only the goal block and stop.
 - Use analysis-first mode for high-risk signals.
 - Do not perform destructive edits without explicit confirmation.
 - Final reports must include changed files, behavior changes, verification result, risks, and follow-ups.
