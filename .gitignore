@@ -44,6 +44,9 @@ Thumbs.db
 # Local worktrees
 .worktrees/
 
+# Local-only dev helpers (repo stays Markdown-only for distribution)
+/sync-to-user.sh
+
 # Superpowers session artifacts
 docs/superpowers/
 
