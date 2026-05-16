@@ -1,28 +1,40 @@
 # Promptify
 
-Promptify 是一个 Claude Code skill，把简短的开发意图转换成结构化、上下文感知的任务 brief，并在生成 brief 之后再决定是否进入执行。
+[简体中文](README.zh-CN.md)
 
-## 为什么需要它
+Promptify is a Claude Code skill that turns brief developer intent into a structured, context-aware task brief, then lets the user decide whether to enter execution.
 
-直接把“修复登录失败提示”这类短意图交给 agent 执行，常见问题是范围不清、上下文读错、测试要求缺失，或者高风险改动过早进入编辑。Promptify 在执行前先生成一个紧凑 brief，把目标、模式、上下文、要求和安全门禁说清楚。
+## Why It Exists
 
-Promptify 不是自动执行器，也不是安装器。它的核心价值是让用户和 agent 在动手前共享同一份任务契约。
+When a short intent such as "fix the login failure message" is handed directly to an agent, common failures include unclear scope, incorrect context, missing test expectations, or high-risk edits starting too early. Promptify generates a compact brief before execution, making the goal, mode, context, requirements, and safety gate explicit.
 
-## 它是什么
+Promptify is not an auto-executor or installer. Its core value is giving the user and agent the same task contract before work begins.
 
-- 一个 Claude Code skill 包：`skills/promptify/SKILL.md`。
-- 一组 Markdown 共享规则与模板：`skills/promptify/shared/`。
-- 覆盖 bugfix、feature、refactor、test、review、docs、planning、PRD、long-running goal 等常见开发任务。
+## What It Is
 
-## 行为
+- A Claude Code skill package: `skills/promptify/SKILL.md`.
+- A set of shared Markdown rules and templates: `skills/promptify/shared/`.
+- Coverage for common development tasks: bugfix, feature, refactor, test, review, docs, planning, PRD, and long-running goal prompts.
 
-- 把短意图分类后，按 `skills/promptify/shared/task-routing.md` 路由到合适的模板。
-- 先按 `skills/promptify/shared/context-discovery.md` 探索最小必要项目上下文，再生成紧凑 brief。
-- brief 生成语言跟随用户输入：中文输入生成中文，英文输入生成英文；技术标识、命令、路径保留原文。
-- 高风险输入（deletion、migration、payment、permission、auth、security、production、mass update、rewrite、purge 等）进入 analysis-first 模式，destructive edits 前必须明确确认。
-- 默认 prompt-first：先输出 brief，再询问是否执行。用户可以在请求里显式声明 `prompt-only`、`review-only`、`plan-only`、`prd-only` 或 `goal` 模式。
+## When To Use Promptify
 
-## 目录结构
+Promptify is most useful when the task intent is short but the project context is complex. It is especially useful for work involving permissions, authentication, security, migrations, deletion, production risk, or other high-risk changes, and for tasks that need explicit modes such as `review-only`, `plan-only`, or `prd-only`.
+
+It also fits teams that want a consistent agent intake format, or users who want a confirmable task contract before Claude Code executes. Promptify turns a short intent into a brief with a goal, mode, context, requirements, and any needed safety gate so the user and agent align before editing.
+
+Promptify is less useful for tiny mechanical edits, tasks where the user has already written a complete implementation plan, situations where Claude Code should immediately enter a debugging loop, or requests that need new tool or platform capabilities.
+
+Promptify relates to Claude Code as a front-door navigator relates to an execution engine: Promptify reduces misunderstanding, controls scope, and improves verifiability; Claude Code reads code, edits files, runs tests, and debugs. The trade-off is an extra workflow step, and Promptify does not improve Claude Code's underlying execution capability.
+
+## Behavior
+
+- Classifies short intent and routes it to the right template via `skills/promptify/shared/task-routing.md`.
+- Discovers the smallest useful project context via `skills/promptify/shared/context-discovery.md`, then generates a compact brief.
+- Matches the brief language to the user's input: Chinese input produces Chinese, English input produces English; technical identifiers, commands, and paths stay unchanged.
+- Routes high-risk input such as deletion, migration, payment, permission, auth, security, production, mass update, rewrite, and purge into analysis-first mode; destructive edits require explicit confirmation.
+- Defaults to prompt-first: output the brief first, then ask whether to execute. Users can explicitly request `prompt-only`, `review-only`, `plan-only`, `prd-only`, or `goal` mode.
+
+## Repository Layout
 
 ```text
 promptify/
@@ -62,234 +74,234 @@ promptify/
           test.md
 ```
 
-`skills/promptify/SKILL.md` 引用同一 skill 目录内的 `shared/` 资源。`shared/` 必须位于 `skills/promptify/` 之下，这样把 `skills/promptify` 安装为 Claude Code skill 时资源才会随 skill 一起加载。
+`skills/promptify/SKILL.md` references resources in its sibling `shared/` directory. Keep `shared/` under `skills/promptify/` so the resources are included when `skills/promptify` is installed as a Claude Code skill.
 
-## 安装
+## Installation
 
-Promptify 以仓库形态分发，没有 npm 包、安装器或自动注册。把仓库放到 Claude Code 能识别 skill 的位置即可。
+Promptify is distributed as a repository. It has no npm package, installer, or automatic host registration. Put the repository where Claude Code can load the skill.
 
-推荐：把仓库 clone 到一个稳定位置，然后让 Claude Code 加载它的 `skills/`。例如：
+Recommended: clone the repository to a stable location, then let Claude Code load its `skills/` directory. For example:
 
 ```bash
 git clone <repo-url> ~/promptify
 ln -s ~/promptify/skills/promptify ~/.claude/skills/promptify
 ```
 
-或者把整个仓库直接放在项目里作为项目级 skill。无论哪种方式，请保持 `shared/` 在 `skills/promptify/` 目录内。
+You can also place the whole repository inside a project as a project-level skill. In either case, keep `shared/` inside `skills/promptify/`.
 
-## 使用
+## Usage
 
-在 Claude Code 中描述你的开发意图，并要求使用 `promptify` skill 处理。例如：
+Describe your development intent in Claude Code and ask it to use the `promptify` skill. For example:
 
 ```text
-用 promptify 处理：修复登录失败提示
-promptify：当前改动 review 一下
-promptify：把当前讨论整理成 PRD
-promptify：支持团队模板覆盖的实现计划
-promptify：把 docs/superpowers/plans/2026-05-13-promptify-mvp.md 跑成 long-running goal
+Use promptify: fix the login failure message
+promptify: review the current changes
+promptify: turn the current discussion into a PRD
+promptify: implementation plan for team template overrides
+promptify: turn docs/superpowers/plans/2026-05-13-promptify-mvp.md into a long-running goal
 ```
 
-skill 会先生成紧凑 brief，再询问是否执行；PRD 模式会直接生成 PRD 并停止。
+The skill generates a compact brief first, then asks whether to execute. PRD mode generates the PRD and stops.
 
-## 示例
+## Examples
 
-### 快速输入示例
+### Quick Inputs
 
 ```text
-promptify：修复登录失败提示
-promptify：新增导出 CSV 功能
-promptify：重构订单状态计算逻辑，保持行为不变
-promptify：给支付回调补测试
-promptify：review 当前分支，重点看安全和回归风险
-promptify prompt-only：把“优化设置页加载速度”整理成 brief，不要执行
-promptify plan-only：制定从 REST 迁移到 GraphQL 的实施计划
-promptify prd-only：把“团队模板覆盖”整理成 PRD
-promptify：删除旧权限表和迁移脚本
-promptify goal：按 docs/plans/cache-cleanup.md 持续推进
+promptify: fix the login failure message
+promptify: add CSV export
+promptify: refactor order status calculation without behavior changes
+promptify: add tests for payment callbacks
+promptify: review the current branch, focusing on security and regression risk
+promptify prompt-only: turn "optimize settings page load speed" into a brief; do not execute
+promptify plan-only: plan the migration from REST to GraphQL
+promptify prd-only: turn "team template overrides" into a PRD
+promptify: delete the old permission table and migration scripts
+promptify goal: keep progressing docs/plans/cache-cleanup.md
 ```
 
 ### Bugfix
 
-输入：
+Input:
 
 ```text
-promptify：修复登录失败提示
+promptify: fix the login failure message
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-修复登录失败时的用户可见提示，保持现有登录流程和错误处理风格。
+Goal:
+Fix the user-visible message shown when login fails, while preserving the existing login flow and error handling style.
 
-模式：
-先生成 brief 并询问是否进入执行阶段。
+Mode:
+Generate the brief first and ask whether to enter execution.
 
-上下文：
-优先检查登录入口、错误处理、已有测试和文档中的登录说明。
+Context:
+Inspect the login entry point, error handling, existing tests, and login-related docs first.
 
-要求：
-定位失败提示来源，最小范围修复，不改动认证流程；补充或更新相关测试，并运行目标验证命令。最终汇报改动文件、行为变化、验证结果、风险和后续建议。
+Requirements:
+Locate the source of the failed-login message and make the smallest scoped fix without changing the authentication flow. Add or update relevant tests, run the targeted verification command, and report changed files, behavior changes, verification results, risks, and follow-ups.
 ```
 
 ### Feature
 
-输入：
+Input:
 
 ```text
-promptify：新增导出 CSV 功能
+promptify: add CSV export
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-为现有列表或报表新增 CSV 导出能力，遵循当前产品交互和权限边界。
+Goal:
+Add CSV export support for the existing list or report, following the current product interaction and permission boundaries.
 
-模式：
-先生成 feature brief，并在用户确认后再进入实现。
+Mode:
+Generate a feature brief first, then execute after user confirmation.
 
-上下文：
-优先检查相关列表页面、数据查询层、权限判断、现有导出能力和测试覆盖。
+Context:
+Inspect the relevant list view, data query layer, permission checks, existing export behavior, and test coverage first.
 
-要求：
-明确导出字段、筛选条件、文件命名和空状态行为；复用现有数据与权限逻辑，避免引入独立导出服务。补充目标测试，并汇报验证命令、行为变化和剩余风险。
+Requirements:
+Clarify exported fields, filters, file naming, and empty-state behavior. Reuse existing data and permission logic, avoid adding a separate export service, add targeted tests, and report verification commands, behavior changes, and remaining risks.
 ```
 
 ### Refactor
 
-输入：
+Input:
 
 ```text
-promptify：重构订单状态计算逻辑，保持行为不变
+promptify: refactor order status calculation without behavior changes
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-重构订单状态计算逻辑，降低复杂度，同时保持现有外部行为和数据结果不变。
+Goal:
+Refactor order status calculation to reduce complexity while preserving existing external behavior and data results.
 
-模式：
-先生成 refactor brief，并在确认后执行。
+Mode:
+Generate a refactor brief first, then execute after confirmation.
 
-上下文：
-优先检查订单状态入口、调用方、边界条件、已有测试和历史文档。
+Context:
+Inspect order status entry points, callers, edge cases, existing tests, and historical docs first.
 
-要求：
-先锁定当前行为和测试基线，再做小范围结构调整；不改变状态枚举、接口返回或数据库结构。补充缺失的边界测试，并汇报重构范围、验证结果和兼容性风险。
+Requirements:
+Lock down current behavior and test baseline before making small structural changes. Do not change status enums, API responses, or database structure. Add missing edge-case tests, and report refactor scope, verification results, and compatibility risks.
 ```
 
 ### Review
 
-输入：
+Input:
 
 ```text
-promptify：review 当前分支，重点看安全和回归风险
+promptify: review the current branch, focusing on security and regression risk
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-审查当前分支改动，优先发现安全、权限、数据一致性和回归风险。
+Goal:
+Review the current branch changes, prioritizing security, permission, data consistency, and regression risks.
 
-模式：
-review-only；只输出审查结论，不直接修改文件。
+Mode:
+review-only; output review findings only and do not edit files.
 
-上下文：
-优先检查 git diff、相关测试、权限边界、外部输入处理和高风险模块。
+Context:
+Inspect git diff, related tests, permission boundaries, external input handling, and high-risk modules first.
 
-要求：
-按严重程度列出问题，提供文件位置、影响说明和可执行修复建议；如果没有发现明确问题，说明残余风险和建议补充的验证。
+Requirements:
+List findings by severity with file locations, impact, and actionable fixes. If no clear issue is found, state residual risk and recommended additional verification.
 ```
 
 ### PRD
 
-输入：
+Input:
 
 ```text
-promptify prd-only：把“团队模板覆盖”整理成 PRD
+promptify prd-only: turn "team template overrides" into a PRD
 ```
 
-输出会类似：
+Example output:
 
 ```text
-问题陈述：
-团队希望在保留默认模板的同时，为特定项目或团队维护可覆盖的 brief 模板规则。
+Problem Statement:
+Teams want to maintain overrideable brief template rules for specific projects or teams while keeping the default templates available.
 
-解决方案：
-定义团队模板覆盖的加载顺序、作用范围、冲突处理和回退行为。
+Solution:
+Define template override loading order, scope, conflict handling, and fallback behavior.
 
-用户故事：
-作为团队维护者，我可以为团队项目提供定制模板，并在未配置时继续使用默认模板。
+User Stories:
+As a team maintainer, I can provide custom templates for team projects and keep using defaults when no override is configured.
 
-实现决策：
-优先设计 Markdown-first 的覆盖约定，不引入服务端、数据库或运行时同步。
+Implementation Decisions:
+Prefer a Markdown-first override convention without introducing a service, database, or runtime sync.
 
-测试决策：
-用文档示例和模板检查覆盖默认、覆盖冲突、缺失回退等场景。
+Testing Decisions:
+Use documentation examples and template checks to cover default behavior, override behavior, override conflicts, and missing fallback.
 
-非目标：
-不提供 web UI、云同步、权限系统或跨平台 adapter。
+Non-Goals:
+No web UI, cloud sync, permission system, or cross-platform adapter.
 
-补充说明：
-PRD 模式生成文档后停止，不自动进入实现。
+Notes:
+PRD mode stops after generating the document and does not automatically enter implementation.
 ```
 
-### 高风险任务
+### High-Risk Task
 
-输入：
+Input:
 
 ```text
-promptify：删除旧权限表和迁移脚本
+promptify: delete the old permission table and migration scripts
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-评估旧权限表和迁移脚本的删除需求，确认影响范围和回滚路径。
+Goal:
+Evaluate the deletion request for the old permission table and migration scripts, confirming impact radius and rollback path.
 
-模式：
-analysis-first；涉及 deletion、permission、migration，执行任何 destructive edits 前必须获得明确确认。
+Mode:
+analysis-first; this involves deletion, permission, and migration, so any destructive edits require explicit confirmation.
 
-上下文：
-优先检查数据库迁移历史、权限调用方、部署流程、备份策略和测试覆盖。
+Context:
+Inspect database migration history, permission callers, deployment flow, backup strategy, and test coverage first.
 
-要求：
-先产出影响分析、依赖清单、验证方案和回滚计划；未经用户明确确认，不删除文件、不修改迁移、不移除权限路径。
+Requirements:
+First produce an impact analysis, dependency list, verification plan, and rollback plan. Do not delete files, modify migrations, or remove permission paths without explicit user confirmation.
 ```
 
-### Long-running Goal
+### Long-Running Goal
 
-输入：
+Input:
 
 ```text
-promptify goal：按 docs/plans/cache-cleanup.md 持续推进
+promptify goal: keep progressing docs/plans/cache-cleanup.md
 ```
 
-输出会类似：
+Example output:
 
 ```text
-目标：
-把 docs/plans/cache-cleanup.md 转换为可持续推进的 goal prompt，用于分阶段清理缓存相关工作。
+Goal:
+Turn docs/plans/cache-cleanup.md into a durable goal prompt for staged cache cleanup work.
 
-模式：
-goal；建立长期目标、阶段检查点和每轮执行边界。
+Mode:
+goal; establish a long-running objective, phase checkpoints, and per-turn execution boundaries.
 
-上下文：
-优先读取计划文档、缓存模块、测试命令和已知风险。
+Context:
+Read the plan document, cache modules, test commands, and known risks first.
 
-要求：
-拆分可验证的小步骤，记录当前阶段、下一步、阻塞点和验证结果；每轮执行都避免扩大到计划之外的重构。
+Requirements:
+Break the work into verifiable small steps, record the current phase, next step, blockers, and verification results, and avoid expanding each turn into refactors outside the plan.
 ```
 
-## 支持的任务类型
+## Supported Task Types
 
-| 任务 | 模板 |
+| Task | Template |
 |---|---|
-| 通用任务 | `skills/promptify/shared/templates/task.md` |
+| General task | `skills/promptify/shared/templates/task.md` |
 | Bugfix / debug | `skills/promptify/shared/templates/bugfix.md` |
 | Feature | `skills/promptify/shared/templates/feature.md` |
 | Refactor | `skills/promptify/shared/templates/refactor.md` |
@@ -300,23 +312,23 @@ goal；建立长期目标、阶段检查点和每轮执行边界。
 | Plan | `skills/promptify/shared/templates/plan.md` |
 | Goal prompt | `skills/promptify/shared/templates/goal.md` |
 
-## 安全规则
+## Safety Rules
 
-详见 `skills/promptify/shared/safety.md`。高风险任务（deletion、migration、payment、permission、auth、security、production、mass update、rewrite、purge）会先进入 analysis-first 模式，destructive edits 前必须显式确认。
+See `skills/promptify/shared/safety.md`. High-risk tasks such as deletion, migration, payment, permission, auth, security, production, mass update, rewrite, and purge enter analysis-first mode, and destructive edits require explicit confirmation.
 
-## 项目边界
+## Project Boundaries
 
-Promptify 的边界记录在 `docs/adr/0001-markdown-first-single-entry.md`。不做的方向记录在 `docs/out-of-scope/`，包括 npm CLI、Codex adapter、web UI / hosted service，以及多 skill 拆分。
+Promptify's boundaries are recorded in `docs/adr/0001-markdown-first-single-entry.md`. Out-of-scope directions are recorded in `docs/out-of-scope/`, including npm CLI, Codex adapter, web UI / hosted service, and multi-skill splitting.
 
-维护模板时参考 `skills/promptify/shared/glossary.md` 和 `skills/promptify/shared/template-authoring.md`，保持术语、模式语义和安全门禁一致。
+When maintaining templates, refer to `skills/promptify/shared/glossary.md` and `skills/promptify/shared/template-authoring.md` to keep terminology, mode semantics, and safety gates consistent.
 
-## 版本维护
+## Version Maintenance
 
-版本和修改内容统一维护在 `CHANGELOG.md`。版本号按 SemVer 递增：文档或模板小修递增 PATCH，新增模板、模式或显著工作流行为递增 MINOR，破坏性布局或行为变化递增 MAJOR。
+Versions and changes are maintained in `CHANGELOG.md`. Version numbers follow SemVer: documentation or template touch-ups increment PATCH, new templates, modes, or notable workflow behavior increment MINOR, and breaking layout or behavior changes increment MAJOR.
 
 ## Manual QA
 
-修改 shared 模板或 SKILL.md 后，至少运行：
+After changing shared templates or `SKILL.md`, run at least:
 
 ```bash
 rg -n "目标：|模式：|上下文：|要求：" skills/promptify/shared/templates -g '!prd.md'
@@ -326,11 +338,11 @@ rg -n "T[B]D|T[O]DO|implement late[r]|fill in detail[s]" skills/promptify/shared
 git diff --check HEAD
 ```
 
-第一条应能在每个 compact brief 模板里找到紧凑核心块。第二条应能找到 PRD 核心段。第三条应能找到 mode 名称和 shared template 引用。未完成标记扫描应无输出。
+The first command should find compact core blocks in every compact brief template. The second should find the PRD core sections. The third should find mode names and shared template references. The unfinished-marker scan should produce no output.
 
-## 限制
+## Limitations
 
-- 没有 npm CLI、安装器、宿主自动注册。
-- 没有 Codex 适配器；本仓库只面向 Claude Code skill。
-- 没有 web UI、hosted service、cloud sync、telemetry、MCP indexer。
-- 执行阶段能力取决于 Claude Code 自身，并默认需要用户在 brief 生成后确认。
+- No npm CLI, installer, or automatic host registration.
+- No Codex adapter; this repository targets Claude Code skills only.
+- No web UI, hosted service, cloud sync, telemetry, or MCP indexer.
+- Execution-stage capability depends on Claude Code itself, and by default requires user confirmation after brief generation.
