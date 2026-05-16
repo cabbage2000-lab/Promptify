@@ -12,7 +12,7 @@ language:
 |---|---|---|---|
 | 目标 | Goal | Yes | Restate the intended outcome in concrete terms. |
 | 假设 | Assumptions | Conditional | Include only when input is vague or task type detection is uncertain. |
-| 模式 | Mode | Yes | State guided prompt-first, prompt-only, execution-after-confirmation, analysis-first, review-only, or plan-only. |
+| 模式 | Mode | Yes | State guided prompt-first, prompt-only, execution-after-confirmation, analysis-first, review-only, plan-only, or prd-only. |
 | 上下文 | Context | Yes | Tell the host assistant what local context to inspect first. |
 | 要求 | Requirements | Yes | Combine execution order, boundaries, acceptance, verification, and final report expectations. |
 | 安全门禁 | Safety Gate | Conditional | Include only for high-risk signals or destructive actions. |
@@ -20,6 +20,10 @@ language:
 Promptify can also generate `/goal` prompts for long-running work. Goal prompts are
 not compact briefs; they are durable contracts for a host agent to keep working
 until a verifiable stopping condition is met.
+
+Promptify can also generate PRDs. PRDs are not compact briefs and do not enter
+execution; they synthesize current conversation and minimal project context into
+a product requirement document.
 
 ## Compression Rules
 
@@ -83,6 +87,14 @@ Plan-only mode:
 - Investigate relevant code and constraints when allowed by the host.
 - Produce a staged implementation plan.
 - Do not edit code unless the user explicitly asks to continue.
+
+PRD-only mode:
+- Use when the user asks to turn current conversation, a feature idea, or project context into a PRD.
+- Synthesize what is already known; do not restart with a broad interview.
+- Ask at most one focused clarification question only when a missing decision would make the PRD misleading.
+- Otherwise record uncertainty under assumptions, open questions, or further notes.
+- Produce the PRD from `shared/templates/prd.md` and stop.
+- Do not publish to an issue tracker, apply labels, edit code, or continue into implementation.
 
 Goal-prompt mode:
 - Use for `/promptify:goal <long-running task>`, `promptify goal: <long-running task>`, or direct requests to turn an intent into a `/goal` prompt.

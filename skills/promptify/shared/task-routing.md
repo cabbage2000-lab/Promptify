@@ -12,6 +12,7 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | 测试, 覆盖率, 补 test, 单测 | test | `templates/test.md` |
 | review, 审查, 看看代码, PR | review | `templates/review.md` |
 | 文档, README, 注释, docs | docs | `templates/docs.md` |
+| PRD, 产品需求, 需求文档, product requirement | prd | `templates/prd.md` |
 | 规划, 方案, 设计, plan | plan | `templates/plan.md` |
 | /goal, goal, 长跑任务, 持久目标, 持续执行, 直到完成 | goal prompt | `templates/goal.md` |
 
@@ -31,6 +32,7 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | `/promptify 修复登录失败提示` | debug / bugfix | guided prompt-first |
 | `/promptify:generate 修复登录失败提示` | debug / bugfix | prompt-only compatibility alias |
 | `/promptify:review 当前改动` | review | review-only |
+| `promptify：把当前讨论整理成 PRD` | prd | prd-only |
 | `/promptify 重构支付模块并补测试` | high-risk refactor | analysis-first |
 | `/promptify 删除旧支付模块` | high-risk task | analysis-first |
 | `/promptify:goal 完成 PLAN.md 的 MVP` | goal prompt | goal-prompt |
