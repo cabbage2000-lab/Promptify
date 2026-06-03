@@ -8,6 +8,7 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 |---|---|---|
 | 修复, bug, 报错, 失败, 异常, 不对, crash | debug / bugfix | `templates/bugfix.md` |
 | 新增, 实现, 支持, 增加, add, implement | feature | `templates/feature.md` |
+| 原型, prototype, 做个原型, 草几个设计, 试一下设计/状态机, 玩一下 | prototype | `templates/prototype.md` |
 | 重构, 优化结构, 拆分, 整理, refactor | refactor | `templates/refactor.md` |
 | 测试, 覆盖率, 补 test, 单测 | test | `templates/test.md` |
 | review, 审查, 看看代码, PR | review | `templates/review.md` |
@@ -37,4 +38,6 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | `/promptify 删除旧支付模块` | high-risk task | analysis-first |
 | `/promptify:goal 完成 PLAN.md 的 MVP` | goal prompt | goal-prompt |
 | `promptify goal: 迁移旧测试到 node:test` | goal prompt | goal-prompt |
+| `/promptify 给设置页草几个设计` | prototype (UI 分支) | guided prompt-first |
+| `/promptify 先试一下这个状态机` | prototype (logic 分支) | guided prompt-first |
 | `/promptify 优化一下这个模块` | generic task | guided prompt-first or clarification |

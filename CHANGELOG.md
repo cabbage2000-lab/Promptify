@@ -6,6 +6,13 @@ Promptify uses this file as the canonical version record. Versions follow SemVer
 - MINOR: new templates, modes, or notable workflow behavior.
 - MAJOR: breaking layout or behavior changes.
 
+## 0.2.0 - 2026-06-03
+
+### Added
+
+- Added the `prototype` task type for building a throwaway prototype before committing to a design. The new `skills/promptify/shared/templates/prototype.md` template routes between a logic branch (a runnable terminal app to drive a state model by hand) and a UI branch (several radically different UI variations switchable on one route), with the branch decision surfaced in the brief assumptions block.
+- Added prototype routing cues and examples to `skills/promptify/shared/task-routing.md`, a Prototype entry to `skills/promptify/shared/context-discovery.md`, and registered the template across `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `README.md`, and `README.zh-CN.md`.
+
 ## 0.1.0 - 2026-05-16
 
 Initial tracked version.
