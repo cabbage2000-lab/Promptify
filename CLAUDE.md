@@ -19,7 +19,7 @@ Key files:
 - `skills/promptify/shared/safety.md`: Safety levels, high-risk signals, and confirmation behavior.
 - `skills/promptify/shared/context-discovery.md`: Minimal-context exploration rules.
 - `skills/promptify/shared/template-authoring.md`: Rules for creating and editing compact templates.
-- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, refactor, test, review, docs, plan, PRD, goal).
+- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, prototype, refactor, test, review, docs, plan, PRD, goal).
 - `docs/adr/`: Architectural decision records for product boundaries and durable design decisions.
 - `docs/out-of-scope/`: Rationale for product directions Promptify intentionally does not support.
 
