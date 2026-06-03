@@ -40,6 +40,19 @@ Feature:
 - Find similar features, extension points, data flow, UI or API contracts,
   tests, docs, and error states.
 
+Prototype (UI):
+- Confirm the question is about appearance. If it is about logic, state, or data
+  shape, defer to the executor to ask one clarifying question instead of scoping
+  it here.
+- Detect and reuse the project's existing stack instead of introducing new
+  tooling: the UI framework and its router API (Next `router.replace`, React
+  Router `navigate`, etc.), the component library and styling system
+  (TailwindCSS, shadcn, MUI, plain CSS), and the routing convention.
+- Find an existing page that can host the variants and the data available on
+  that page.
+- Default to embedding variants in the existing page with no persistence and no
+  real mutations.
+
 Refactor:
 - Find current behavior, public interfaces, callers, tests, and compatibility
   constraints.
