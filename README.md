@@ -169,6 +169,33 @@ Requirements:
 Clarify exported fields, filters, file naming, and empty-state behavior. Reuse existing data and permission logic, avoid adding a separate export service, add targeted tests, and report verification commands, behavior changes, and remaining risks.
 ```
 
+### Prototype (UI)
+
+Input:
+
+```text
+promptify: sketch a few layouts for the settings page
+```
+
+Example output:
+
+```text
+Goal:
+Use a throwaway UI prototype to explore what the settings page should look like — render several structurally different layout variations on the existing settings route, switchable for side-by-side comparison, then fold the winner into the real page and delete the rest.
+
+Assumptions:
+Treated as a UI prototype (appearance only). If the question is actually about logic or state, the executor should ask one clarifying question first.
+
+Mode:
+Generate the brief first and ask whether to enter execution.
+
+Context:
+Detect and reuse the project's existing stack first — the UI framework and its router API, the component library, the styling system, and the routing convention — then locate the settings page and the data available to it.
+
+Requirements:
+Build 3 structurally different variants (different layout, hierarchy, and primary affordance — not just colors), named VariantA/VariantB/VariantC and switchable on one route via ?variant= with a floating switcher (arrow keys, URL-updating, hidden in production). Keep it throwaway: no persistence, no real mutations, no tests. Report the access URL and ?variant= keys, the winning variant, and the delete-or-absorb recommendation.
+```
+
 ### Refactor
 
 Input:
