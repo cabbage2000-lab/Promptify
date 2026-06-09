@@ -14,7 +14,7 @@ Promptify is not an auto-executor or installer. Its core value is giving the use
 
 - A Claude Code skill package: `skills/promptify/SKILL.md`.
 - A set of shared Markdown rules and templates: `skills/promptify/shared/`.
-- Coverage for common development tasks: bugfix, feature, prototyping, refactor, test, review, docs, planning, PRD, and long-running goal prompts.
+- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, refactor, test, review, docs, planning, PRD, and long-running goal prompts.
 
 ## When To Use Promptify
 
@@ -63,6 +63,7 @@ promptify/
         test-plan.md
         templates/
           bugfix.md
+          data-analysis.md
           docs.md
           feature.md
           goal.md
@@ -194,6 +195,33 @@ Detect and reuse the project's existing stack first — the UI framework and its
 
 Requirements:
 Build 3 structurally different variants (different layout, hierarchy, and primary affordance — not just colors), named VariantA/VariantB/VariantC and switchable on one route via ?variant= with a floating switcher (arrow keys, URL-updating, hidden in production). Keep it throwaway: no persistence, no real mutations, no tests. Report the access URL and ?variant= keys, the winning variant, and the delete-or-absorb recommendation.
+```
+
+### Data analysis
+
+Input:
+
+```text
+promptify: analyze last week's retention data
+```
+
+Example output:
+
+```text
+Goal:
+Answer a verifiable analytical question about last week's retention with concrete numbers, stating which data and metric definitions decide the result — not a vague descriptive overview.
+
+Assumptions:
+Make data assumptions explicit first — time range, grain (what one row represents), metric definitions (how "active" and "retained" are computed), dedup and filtering rules, and whether test or internal traffic is included.
+
+Mode:
+Generate the brief first and ask whether to enter execution.
+
+Context:
+Understand the data before computing — data sources and access, schema and column meaning, sample rows and row-count magnitude, null rates and distributions, time coverage, and existing metric definitions or queries — reusing the project's existing analysis stack.
+
+Requirements:
+Keep the analysis reproducible (saved query or script) and run data-integrity self-checks (row magnitude, null rates, double-counting, join cardinality, time coverage); relax only for obviously one-off explorations and say what was relaxed. Do not over-interpret: state sample size, separate correlation from causation, and note caveats. Report the conclusion and key numbers, the data and metric definitions used, how to reproduce, the integrity checks done, and remaining limitations.
 ```
 
 ### Refactor
@@ -333,6 +361,7 @@ Break the work into verifiable small steps, record the current phase, next step,
 | Bugfix / debug | `skills/promptify/shared/templates/bugfix.md` |
 | Feature | `skills/promptify/shared/templates/feature.md` |
 | Prototype (UI) | `skills/promptify/shared/templates/prototype.md` |
+| Data analysis | `skills/promptify/shared/templates/data-analysis.md` |
 | Refactor | `skills/promptify/shared/templates/refactor.md` |
 | Test | `skills/promptify/shared/templates/test.md` |
 | Review | `skills/promptify/shared/templates/review.md` |

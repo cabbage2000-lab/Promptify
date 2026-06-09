@@ -5,7 +5,7 @@ description: Convert short developer intent into a structured task brief, then g
 
 # Promptify
 
-Use this skill when the user gives a short development intent (bug, feature, prototype, refactor, test, review, docs, plan, PRD, debug, or long-running goal) and you need to convert it into a structured brief or product requirement document before any code edits.
+Use this skill when the user gives a short development intent (bug, feature, prototype, data analysis, refactor, test, review, docs, plan, PRD, debug, or long-running goal) and you need to convert it into a structured brief or product requirement document before any code edits.
 
 ## Shared Sources
 

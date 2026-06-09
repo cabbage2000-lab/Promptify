@@ -53,6 +53,16 @@ Prototype (UI):
 - Default to embedding variants in the existing page with no persistence and no
   real mutations.
 
+Data analysis:
+- Understand the data before computing: data sources and access (files,
+  database or warehouse tables, logs, events), schema and column meaning, sample
+  rows and row-count magnitude, null rates and value distributions of key fields,
+  time coverage, and any existing metric definitions, queries, or notebooks.
+- Reuse the project's existing analysis stack (SQL, pandas, DuckDB, notebooks)
+  instead of introducing new tooling.
+- Keep discovery scoped to the asked question; do not profile the whole
+  warehouse.
+
 Refactor:
 - Find current behavior, public interfaces, callers, tests, and compatibility
   constraints.

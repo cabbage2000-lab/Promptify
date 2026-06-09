@@ -19,7 +19,7 @@ The repository must not contain a runtime service, web UI, database, telemetry, 
 - `skills/promptify/shared/context-discovery.md`: Minimal-context exploration rules.
 - `skills/promptify/shared/template-authoring.md`: Rules for creating and editing compact templates.
 - `skills/promptify/shared/test-plan.md`: Manual QA checklist source.
-- `skills/promptify/shared/templates/*.md`: Templates for task, bugfix, feature, prototype, refactor, test, review, docs, plan, PRD, goal.
+- `skills/promptify/shared/templates/*.md`: Templates for task, bugfix, feature, prototype, data analysis, refactor, test, review, docs, plan, PRD, goal.
 - `docs/adr/`: Architectural decision records for product boundaries and durable design decisions.
 - `docs/out-of-scope/`: Rationale for product directions Promptify intentionally does not support.
 - `README.md`, `README.zh-CN.md`: User-facing installation, usage, safety, QA, limitations.
