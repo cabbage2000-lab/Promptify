@@ -14,7 +14,7 @@ Promptify is not an auto-executor or installer. Its core value is giving the use
 
 - A Claude Code skill package: `skills/promptify/SKILL.md`.
 - A set of shared Markdown rules and templates: `skills/promptify/shared/`.
-- Coverage for common development tasks: bugfix, feature, prototyping, refactor, test, review, docs, planning, PRD, and long-running goal prompts.
+- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, refactor, test, review, docs, planning, PRD, and long-running goal prompts.
 
 ## When To Use Promptify
 
@@ -63,6 +63,7 @@ promptify/
         test-plan.md
         templates/
           bugfix.md
+          data-analysis.md
           docs.md
           feature.md
           goal.md
@@ -333,6 +334,7 @@ Break the work into verifiable small steps, record the current phase, next step,
 | Bugfix / debug | `skills/promptify/shared/templates/bugfix.md` |
 | Feature | `skills/promptify/shared/templates/feature.md` |
 | Prototype (UI) | `skills/promptify/shared/templates/prototype.md` |
+| Data analysis | `skills/promptify/shared/templates/data-analysis.md` |
 | Refactor | `skills/promptify/shared/templates/refactor.md` |
 | Test | `skills/promptify/shared/templates/test.md` |
 | Review | `skills/promptify/shared/templates/review.md` |

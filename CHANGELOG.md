@@ -6,6 +6,13 @@ Promptify uses this file as the canonical version record. Versions follow SemVer
 - MINOR: new templates, modes, or notable workflow behavior.
 - MAJOR: breaking layout or behavior changes.
 
+## 0.3.0 - 2026-06-09
+
+### Added
+
+- Added the `data analysis` task type for ad-hoc data analysis and exploration (EDA), where the deliverable is a conclusion, insight, chart, or report rather than production code. The new `skills/promptify/shared/templates/data-analysis.md` template restates a vague "analyze the data" request as a verifiable analytical question, makes data assumptions (grain, metric definitions, time range, dedup, filters) explicit, and defaults to reproducible analysis with data-integrity self-checks and no over-interpretation, relaxing only for obviously one-off explorations.
+- Added data analysis routing cues, a disambiguation note, and an example to `skills/promptify/shared/task-routing.md`; added a Data analysis entry to `skills/promptify/shared/context-discovery.md`; and registered the template across `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `README.md`, and `README.zh-CN.md`.
+
 ## 0.2.0 - 2026-06-03
 
 ### Added
