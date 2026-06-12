@@ -42,6 +42,14 @@ A durable `/goal` prompt for long-running work. It is larger than a compact brie
 **PRD**:
 A product requirement document synthesized from current conversation and minimal project context. It describes the problem, solution, user stories, implementation decisions, testing decisions, out of scope, and open notes. It is not an execution plan and does not publish to an issue tracker.
 
+**Evolution loop**:
+A score-driven generational optimization flow for evolve briefs. A deterministic orchestrator runs generations; each generation executes the evaluation contract, records the score into the run history, and lets a feedback role write the next candidate. Defined in `shared/evolution-loop.md`.
+_Avoid_: genetic algorithm, auto-retry.
+
+**Evaluation contract**:
+The required scoring definition for an evolve brief: metric definition, measurement method, and target value or budget. Prefer an executable scoring command; fall back to a fixed-rubric LLM judge only when no objective metric exists.
+_Avoid_: vague success language such as "make it better".
+
 **Brief principles**:
 The four-principle behavior contract that every generated brief defaults to. Defined in `shared/principles.md`. The principles shape brief content; they do not add new brief blocks or modes.
 
@@ -70,3 +78,4 @@ _Avoid_: vague success language such as "make it work".
 - Safety rules decide whether a brief needs a safety gate or analysis-first handling.
 - Context discovery tells the host assistant what to inspect before filling or executing a brief.
 - PRD mode turns current context into a product requirement document and stops before implementation.
+- The evolution loop turns a confirmed evolve brief into a generational optimization run driven by its evaluation contract.

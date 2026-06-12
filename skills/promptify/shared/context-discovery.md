@@ -63,6 +63,17 @@ Data analysis:
 - Keep discovery scoped to the asked question; do not profile the whole
   warehouse.
 
+Evolve (iterative optimization):
+- Confirm the evaluation contract first: the metric, how it is measured, and
+  the target value or budget. If the user gave none, draft a candidate
+  (executable scoring command first, fixed-rubric LLM judge as fallback) and
+  mark it for confirmation.
+- Find the artifact to evolve, its runtime environment and dependencies, and
+  any existing test or scoring commands worth reusing.
+- Plan to score the untouched artifact once as the gen 0 baseline.
+- Read `shared/evolution-loop.md` for the orchestration contract before
+  filling the requirements block.
+
 Refactor:
 - Find current behavior, public interfaces, callers, tests, and compatibility
   constraints.

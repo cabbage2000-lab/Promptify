@@ -6,6 +6,13 @@ Promptify uses this file as the canonical version record. Versions follow SemVer
 - MINOR: new templates, modes, or notable workflow behavior.
 - MAJOR: breaking layout or behavior changes.
 
+## 0.4.0 - 2026-06-12
+
+### Added
+
+- Added the `evolve` task type for score-driven iterative optimization, mapping the SIA self-improvement pattern onto Claude Code primitives: a host-generated Workflow script holds the deterministic generation loop and two host-generated subagents (`evolve-meta`, `evolve-feedback`) hold the roles. The new `skills/promptify/shared/templates/evolve.md` template restates "tune X" as an artifact / evaluation-contract / budget triple, requires explicit scoring (executable command first, fixed-rubric LLM judge fallback), evolves copies under `evolve-runs/` only, and writes the best generation back only after user confirmation.
+- Added `skills/promptify/shared/evolution-loop.md` describing the orchestration contract (role mapping, artifact layout, subagent skeletons, workflow script contract, guardrails, final report); added evolve routing cues, a disambiguation note, and an example to `skills/promptify/shared/task-routing.md`; added an Evolve entry to `skills/promptify/shared/context-discovery.md`; added Evolution loop and Evaluation contract terms to `skills/promptify/shared/glossary.md`; and registered the template across `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `README.md`, and `README.zh-CN.md`.
+
 ## 0.3.0 - 2026-06-09
 
 ### Added
