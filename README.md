@@ -226,6 +226,33 @@ Requirements:
 Keep the analysis reproducible (saved query or script) and run data-integrity self-checks (row magnitude, null rates, double-counting, join cardinality, time coverage); relax only for obviously one-off explorations and say what was relaxed. Do not over-interpret: state sample size, separate correlation from causation, and note caveats. Report the conclusion and key numbers, the data and metric definitions used, how to reproduce, the integrity checks done, and remaining limitations.
 ```
 
+### Evolve
+
+Input:
+
+```text
+promptify: optimize this classifier prompt until accuracy reaches 90%
+```
+
+Example output:
+
+```text
+Goal:
+Evolve prompts/classifier.md generation by generation until the evaluation contract reports accuracy >= 0.90 on the labeled sample set, or the generation budget (3) is exhausted — delivering the best generation, the full score curve, and rerun instructions, not a one-shot rewrite.
+
+Assumptions:
+Evaluation contract: run the project's scoring script on each candidate and read accuracy from its JSON output; the untouched prompt is scored first as the gen 0 baseline. Stop on target reached, budget exhausted, or 2 consecutive generations without improvement. Adjust the budget here if needed.
+
+Mode:
+Generate the brief first and ask whether to enter execution. Executing creates .claude/agents/evolve-meta.md, .claude/agents/evolve-feedback.md, and a .claude/workflows/ loop script in this project, then runs a multi-generation, multi-agent loop — confirm the cost before launching.
+
+Context:
+The artifact to evolve and its current content, the existing scoring command and labeled data, runtime requirements, and the orchestration contract in shared/evolution-loop.md.
+
+Requirements:
+Follow shared/evolution-loop.md: evolve-meta writes generation 1; each generation is scored by the fixed evaluation command into score.json and appended to history.md; evolve-feedback then writes improvement.md and the next generation without repeating recorded failures. Evolve copies under evolve-runs/run_<id>/ only — never edit the original prompt file during the run. Report the score curve including the gen 0 baseline, the best generation and its diff against the baseline, per-generation improvement highlights, and rerun/resume instructions; write the best generation back to prompts/classifier.md only after explicit confirmation.
+```
+
 ### Refactor
 
 Input:

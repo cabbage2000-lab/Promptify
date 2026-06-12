@@ -224,6 +224,33 @@ promptify：分析下上周的留存数据
 保持分析可复现（查询/脚本存档），做数据完整性自检（行数量级、空值率、重复计数、join 基数、时间覆盖）；明显一次性的小探索可放宽，但要说明放宽了什么。不过度解读：给出样本量、区分相关与因果、标注局限。最终汇报结论与关键数字、所用数据与口径、复现方式、做过的完整性校验，以及剩余局限。
 ```
 
+### Evolve
+
+输入：
+
+```text
+promptify：把这个分类 prompt 的准确率优化到 90%
+```
+
+输出会类似：
+
+```text
+目标：
+对 prompts/classifier.md 做代际进化：直到评估契约在标注样本集上报告准确率 >= 0.90，或代数预算（3）用尽——交付最优代、含基线的完整分数曲线与复跑方式，而非一次性改写。
+
+假设：
+评估契约：每代用项目现有评分脚本运行候选 prompt，从其 JSON 输出读取准确率；进化前先对原始 prompt 评估一次，记为 gen 0 基线。停止条件：达到目标值、代数用尽、或连续 2 代无提升；预算不符可在此调整。
+
+模式：
+先生成 brief 并询问是否进入执行阶段。执行将在本项目创建 .claude/agents/evolve-meta.md、.claude/agents/evolve-feedback.md 与 .claude/workflows/ 循环脚本，并运行多代多 agent 的高成本循环——启动前需确认成本。
+
+上下文：
+被进化产物及其当前内容、现有评分命令与标注数据、运行环境依赖，以及 shared/evolution-loop.md 中的编排契约。
+
+要求：
+按 shared/evolution-loop.md 执行：evolve-meta 写出第 1 代；每代由固定评估命令评分写入 score.json 并追加进 history.md；evolve-feedback 再写 improvement.md 与下一代，不重复历史中已失败的尝试。进化只发生在 evolve-runs/run_<id>/ 的副本上——运行期间绝不修改原始 prompt 文件。最终汇报含 gen 0 基线的分数曲线、最优代及其相对基线的差异、各代改进要点、复跑与续跑方式；经明确确认后才把最优代回写 prompts/classifier.md。
+```
+
 ### Refactor
 
 输入：
