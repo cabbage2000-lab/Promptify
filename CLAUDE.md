@@ -20,7 +20,7 @@ Key files:
 - `skills/promptify/shared/context-discovery.md`: Minimal-context exploration rules.
 - `skills/promptify/shared/evolution-loop.md`: SIA-style generational loop contract for the evolve task type (role mapping, artifact layout, workflow script contract, guardrails).
 - `skills/promptify/shared/template-authoring.md`: Rules for creating and editing compact templates.
-- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal).
+- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal, handoff).
 - `docs/adr/`: Architectural decision records for product boundaries and durable design decisions.
 - `docs/out-of-scope/`: Rationale for product directions Promptify intentionally does not support.
 
@@ -41,6 +41,7 @@ Key files:
   - plan-only: produce the plan and stop.
   - prd-only: produce the PRD and stop; do not publish to an issue tracker.
   - goal: produce only the goal block from `skills/promptify/shared/templates/goal.md` and stop.
+  - handoff: produce only the handoff prompt from `skills/promptify/shared/templates/handoff.md` and stop.
   - analysis-first: auto-enforced on high-risk signals.
 
 ## Safety Rules

@@ -39,6 +39,13 @@ A Markdown source under `shared/templates/` that provides task-specific brief co
 **Goal prompt**:
 A durable `/goal` prompt for long-running work. It is larger than a compact brief and must include concrete done criteria and stop conditions.
 
+**Handoff prompt**:
+A paste-ready continuation prompt generated from the current session's progress. It lets a task resume in a fresh window when the current context is near full or the host model is drifting. It includes context to read first, completed progress, the stopping point, next steps, constraints, done criteria, and stop conditions.
+_Avoid_: session export, full transcript, checkpoint file.
+
+**Handoff-prompt mode**:
+A mode that outputs only a handoff prompt and stops. It reviews current session history and does minimal read-only project discovery, but does not edit files or continue into execution. It is the session-continuation counterpart to goal-prompt mode.
+
 **PRD**:
 A product requirement document synthesized from current conversation and minimal project context. It describes the problem, solution, user stories, implementation decisions, testing decisions, out of scope, and open notes. It is not an execution plan and does not publish to an issue tracker.
 
@@ -79,3 +86,4 @@ _Avoid_: vague success language such as "make it work".
 - Context discovery tells the host assistant what to inspect before filling or executing a brief.
 - PRD mode turns current context into a product requirement document and stops before implementation.
 - The evolution loop turns a confirmed evolve brief into a generational optimization run driven by its evaluation contract.
+- Handoff-prompt mode compresses current session progress into a paste-ready continuation prompt for a fresh window; it is the session-continuation counterpart to goal-prompt mode.

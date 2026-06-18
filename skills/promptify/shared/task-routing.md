@@ -18,9 +18,11 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | PRD, 产品需求, 需求文档, product requirement | prd | `templates/prd.md` |
 | 规划, 方案, 设计, plan | plan | `templates/plan.md` |
 | /goal, goal, 长跑任务, 持久目标, 持续执行, 直到完成 | goal prompt | `templates/goal.md` |
+| 会话交接, 换会话继续, 换个窗口继续, 断点续跑, 上下文交接, context handoff, continue in new session, resume work | handoff | `templates/handoff.md` |
 
 数据分析专指理解数据、产出洞察；看代码/审查/PR 走 review，实现数据看板/指标管道/ETL 走 feature。
 进化优化（evolve）专指"有显式评估指标、需多代评分循环"的优化；一次性结构整理或无指标的"优化一下"走 refactor 或通用 task，单 agent 长跑契约走 goal。
+会话交接（handoff）专指"承接当前会话进度、生成可粘贴到新会话的续跑 prompt"；从零定义持久长跑目标走 goal，整理需求文档走 prd。
 
 ## Priority
 
@@ -43,6 +45,9 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | `/promptify 删除旧支付模块` | high-risk task | analysis-first |
 | `/promptify:goal 完成 PLAN.md 的 MVP` | goal prompt | goal-prompt |
 | `promptify goal: 迁移旧测试到 node:test` | goal prompt | goal-prompt |
+| `/promptify:handoff` | handoff | handoff-prompt |
+| `promptify handoff: 换个窗口接着做` | handoff | handoff-prompt |
+| `/promptify 换个会话继续刚才的任务` | handoff | handoff-prompt |
 | `/promptify 给设置页草几个设计` | prototype (UI) | guided prompt-first |
 | `/promptify 分析下上周的留存数据` | data analysis | guided prompt-first |
 | `/promptify 把这个分类 prompt 的准确率优化到 90%` | evolve | guided prompt-first |

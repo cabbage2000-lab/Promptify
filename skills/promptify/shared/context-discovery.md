@@ -98,6 +98,12 @@ PRD:
 - Find the user problem, expected behavior, likely actors, relevant product or code areas, constraints, prior decisions, similar features, and test expectations.
 - Do not restart with a broad interview; ask at most one focused clarification question only when a missing decision would make the PRD misleading.
 
+Handoff (session continuation):
+- Review current session history first: completed changes, locked-in decisions, and where the work stopped.
+- Do minimal read-only project discovery to verify real progress: `git status`, recent diffs, and any `PLAN.md` or task artifacts mentioned in the session.
+- Do not read broadly; the goal is to confirm what actually happened, not to re-discover the project.
+- Carry concrete files, commands, decisions, and the stopping point into the prompt; keep `Progress so far` strictly factual.
+
 Generic task:
 - Find enough context to confirm the most likely task type. If the goal remains
   ambiguous, generate one focused clarification question instead of inventing a

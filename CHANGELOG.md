@@ -6,6 +6,13 @@ Promptify uses this file as the canonical version record. Versions follow SemVer
 - MINOR: new templates, modes, or notable workflow behavior.
 - MAJOR: breaking layout or behavior changes.
 
+## 0.5.0 - 2026-06-18
+
+### Added
+
+- Added the `handoff` task type for session continuation when a Claude Code or Codex session nears its context limit and the host model starts to drift. The new `skills/promptify/shared/templates/handoff.md` template compresses the current session's progress into a single paste-ready continuation prompt with goal-style English labels (`Context to read first`, `Progress so far`, `Where it stopped`, `Next`, `Constraints`, `Done when`, `Stop if`) so a fresh window with no prior memory can resume. It is read-only: it reviews current session history and does minimal project discovery, never edits files or runs execution commands.
+- Added a `handoff-prompt` mode; added handoff routing cues, a disambiguation note, and examples to `skills/promptify/shared/task-routing.md`; added a Handoff-prompt mode section and a non-compact-brief note to `skills/promptify/shared/brief-standard.md`; added Handoff prompt and Handoff-prompt mode terms to `skills/promptify/shared/glossary.md`; added a Handoff (session continuation) entry to `skills/promptify/shared/context-discovery.md`; recorded ADR 0004 (add handoff task type); and registered the template across `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `README.md`, and `README.zh-CN.md`.
+
 ## 0.4.0 - 2026-06-12
 
 ### Added

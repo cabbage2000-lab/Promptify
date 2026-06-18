@@ -21,6 +21,11 @@ Promptify can also generate `/goal` prompts for long-running work. Goal prompts 
 not compact briefs; they are durable contracts for a host agent to keep working
 until a verifiable stopping condition is met.
 
+Promptify can also generate handoff prompts for session continuation. Handoff prompts
+are not compact briefs; they compress current session progress into a paste-ready
+continuation prompt for a fresh window when the context is near full or the host
+model is drifting.
+
 Promptify can also generate PRDs. PRDs are not compact briefs and do not enter
 execution; they synthesize current conversation and minimal project context into
 a product requirement document.
@@ -105,6 +110,15 @@ Goal-prompt mode:
 - Prefer concrete files, commands, plans, issues, logs, or artifacts over vague success language.
 - Keep the goal larger than one normal prompt but smaller than an open-ended backlog.
 - For high-risk or destructive work, include a stop condition requiring explicit user confirmation before destructive edits.
+
+Handoff-prompt mode:
+- Use for `/promptify:handoff`, `promptify handoff: <...>`, or natural-language requests to continue current work in a new session (context near full, host model drifting).
+- Output only a paste-ready continuation prompt block and stop.
+- Do not edit files, run execution commands, or continue into execution.
+- Review current session history for completed work, locked-in decisions, and the stopping point; do minimal read-only project discovery per `shared/context-discovery.md` to verify real progress.
+- Base the `Progress so far` block strictly on verified fact; do not invent completed work. Move anything uncertain to `Where it stopped` or `Next`.
+- Keep the prompt self-contained so a fresh session with no prior memory can continue.
+- For high-risk or destructive work, include a `Stop if` condition requiring explicit user confirmation before destructive edits.
 
 ## Language Rules
 - Match the generated brief language to the user's short task language.

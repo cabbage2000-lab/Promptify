@@ -14,7 +14,7 @@ Promptify is not an auto-executor or installer. Its core value is giving the use
 
 - A Claude Code skill package: `skills/promptify/SKILL.md`.
 - A set of shared Markdown rules and templates: `skills/promptify/shared/`.
-- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, evolve (iterative optimization), refactor, test, review, docs, planning, PRD, and long-running goal prompts.
+- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, evolve (iterative optimization), refactor, test, review, docs, planning, PRD, handoff (session continuation), and long-running goal prompts.
 
 ## When To Use Promptify
 
@@ -69,6 +69,7 @@ promptify/
           evolve.md
           feature.md
           goal.md
+          handoff.md
           plan.md
           prd.md
           prototype.md
@@ -122,6 +123,7 @@ promptify plan-only: plan the migration from REST to GraphQL
 promptify prd-only: turn "team template overrides" into a PRD
 promptify: delete the old permission table and migration scripts
 promptify goal: keep progressing docs/plans/cache-cleanup.md
+promptify handoff: continue this work in a new session
 ```
 
 ### Bugfix
@@ -382,6 +384,44 @@ Requirements:
 Break the work into verifiable small steps, record the current phase, next step, blockers, and verification results, and avoid expanding each turn into refactors outside the plan.
 ```
 
+### Handoff
+
+Input:
+
+```text
+promptify handoff: continue this work in a new session
+```
+
+Example output (paste the block below into a fresh session):
+
+```text
+Continue this work from the previous session. Finish the login-failure message fix so the targeted test passes.
+
+Context to read first:
+- Read src/auth/login.ts, tests/auth/login.test.ts, and CLAUDE.md.
+- Run `git status` and `git diff` to confirm the current change set.
+
+Progress so far (do not redo):
+- Located the failing message in src/auth/login.ts and drafted a scoped fix.
+- Confirmed the existing login flow and error-handling style are untouched.
+
+Where it stopped:
+- The fix is drafted but the targeted login test has not been run yet.
+
+Next:
+- Run the targeted login test; if it fails, adjust only the message handling.
+
+Constraints:
+- Do not change the authentication flow or error enums; keep edits surgical.
+
+Done when:
+1. tests/auth/login.test.ts passes.
+2. Final report covers changed files, verification, risks, and follow-ups.
+
+Stop if:
+- A destructive or scope-expanding change is required — stop and ask first.
+```
+
 ## Supported Task Types
 
 | Task | Template |
@@ -399,6 +439,7 @@ Break the work into verifiable small steps, record the current phase, next step,
 | PRD | `skills/promptify/shared/templates/prd.md` |
 | Plan | `skills/promptify/shared/templates/plan.md` |
 | Goal prompt | `skills/promptify/shared/templates/goal.md` |
+| Handoff (session continuation) | `skills/promptify/shared/templates/handoff.md` |
 
 ## Safety Rules
 
