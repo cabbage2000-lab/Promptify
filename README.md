@@ -14,7 +14,7 @@ Promptify is not an auto-executor or installer. Its core value is giving the use
 
 - A Claude Code skill package: `skills/promptify/SKILL.md`.
 - A set of shared Markdown rules and templates: `skills/promptify/shared/`.
-- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, evolve (iterative optimization), refactor, test, review, docs, planning, PRD, handoff (session continuation), and long-running goal prompts.
+- Coverage for common development tasks: bugfix, feature, prototyping, data analysis, evolve (iterative optimization), refactor, test, review, docs, planning, PRD, handoff (session continuation), brainstorm (turning a vague idea into an agreed design), and long-running goal prompts.
 
 ## When To Use Promptify
 
@@ -32,7 +32,7 @@ Promptify relates to Claude Code as a front-door navigator relates to an executi
 - Discovers the smallest useful project context via `skills/promptify/shared/context-discovery.md`, then generates a compact brief.
 - Matches the brief language to the user's input: Chinese input produces Chinese, English input produces English; technical identifiers, commands, and paths stay unchanged.
 - Routes high-risk input such as deletion, migration, payment, permission, auth, security, production, mass update, rewrite, and purge into analysis-first mode; destructive edits require explicit confirmation.
-- Defaults to prompt-first: output the brief first, then ask whether to execute. Users can explicitly request `prompt-only`, `review-only`, `plan-only`, `prd-only`, or `goal` mode.
+- Defaults to prompt-first: output the brief first, then ask whether to execute. Users can explicitly request `prompt-only`, `review-only`, `plan-only`, `prd-only`, `brainstorm`, or `goal` mode.
 
 ## Repository Layout
 
@@ -54,6 +54,7 @@ promptify/
     promptify/
       SKILL.md
       shared/
+        brainstorm.md
         brief-standard.md
         context-discovery.md
         evolution-loop.md
@@ -63,6 +64,7 @@ promptify/
         task-routing.md
         test-plan.md
         templates/
+          brainstorm.md
           bugfix.md
           data-analysis.md
           docs.md
@@ -103,10 +105,11 @@ Use promptify: fix the login failure message
 promptify: review the current changes
 promptify: turn the current discussion into a PRD
 promptify: implementation plan for team template overrides
+promptify: brainstorm how to do review assignment; the idea is still fuzzy
 promptify: turn docs/superpowers/plans/2026-05-13-promptify-mvp.md into a long-running goal
 ```
 
-The skill generates a compact brief first, then asks whether to execute. PRD mode generates the PRD and stops.
+The skill generates a compact brief first, then asks whether to execute. PRD mode generates the PRD and stops. Brainstorm mode clarifies the idea through conversation first, then offers follow-up outputs once the design is agreed.
 
 ## Examples
 
@@ -124,6 +127,7 @@ promptify prd-only: turn "team template overrides" into a PRD
 promptify: delete the old permission table and migration scripts
 promptify goal: keep progressing docs/plans/cache-cleanup.md
 promptify handoff: continue this work in a new session
+promptify: brainstorm the review assignment approach
 ```
 
 ### Bugfix
@@ -422,6 +426,34 @@ Stop if:
 - A destructive or scope-expanding change is required — stop and ask first.
 ```
 
+### Brainstorm
+
+Input:
+
+```text
+promptify: brainstorm how to do review assignment; the idea is still fuzzy
+```
+
+The skill asks one focused question at a time (purpose, audience, constraints, success criteria) and reflects its understanding back, separating what you said from its own assumptions. After classifying the scale tier, the output looks like:
+
+```text
+Scale tier: bounded (the review flow already exists in this repository).
+
+Understanding check:
+What you said: several people grab the same PR review at once, causing duplicated effort.
+My assumption: the goal is in-repo queueing and assignment, not an external tool.
+
+Design:
+Option A: add a claim lock to the existing review queue; smallest change (recommended, YAGNI).
+Option B: add a round-robin assignment service; fairer but introduces a new component.
+Files touched: src/review/queue.ts, tests/review/queue.test.ts.
+Tests: claim conflicts, release, timeout reclaim.
+
+Design gate: once you approve this design, it can become a brief for execution, or be turned into a plan / PRD.
+```
+
+No implementation happens before the design gate passes. Hidden complexity (such as needing a new service) stops the flow and upgrades the tier to architectural, which requires 2-3 options with tradeoffs and section-by-section confirmation.
+
 ## Supported Task Types
 
 | Task | Template |
@@ -440,6 +472,7 @@ Stop if:
 | Plan | `skills/promptify/shared/templates/plan.md` |
 | Goal prompt | `skills/promptify/shared/templates/goal.md` |
 | Handoff (session continuation) | `skills/promptify/shared/templates/handoff.md` |
+| Brainstorm (idea to agreed design) | `skills/promptify/shared/templates/brainstorm.md` |
 
 ## Safety Rules
 

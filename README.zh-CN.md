@@ -12,7 +12,7 @@ Promptify 不是自动执行器，也不是安装器。它的核心价值是让�
 
 - 一个 Claude Code skill 包：`skills/promptify/SKILL.md`。
 - 一组 Markdown 共享规则与模板：`skills/promptify/shared/`。
-- 覆盖 bugfix、feature、prototyping、data analysis、evolve（进化优化）、refactor、test、review、docs、planning、PRD、handoff（会话交接）、long-running goal 等常见开发任务。
+- 覆盖 bugfix、feature、prototyping、data analysis、evolve（进化优化）、refactor、test、review、docs、planning、PRD、handoff（会话交接）、brainstorm（头脑风暴）、long-running goal 等常见开发任务。
 
 ## 什么时候使用 Promptify
 
@@ -30,7 +30,7 @@ Promptify 和 Claude Code 的关系更像前置导航与执行引擎：Promptify
 - 先按 `skills/promptify/shared/context-discovery.md` 探索最小必要项目上下文，再生成紧凑 brief。
 - brief 生成语言跟随用户输入：中文输入生成中文，英文输入生成英文；技术标识、命令、路径保留原文。
 - 高风险输入（deletion、migration、payment、permission、auth、security、production、mass update、rewrite、purge 等）进入 analysis-first 模式，destructive edits 前必须明确确认。
-- 默认 prompt-first：先输出 brief，再询问是否执行。用户可以在请求里显式声明 `prompt-only`、`review-only`、`plan-only`、`prd-only` 或 `goal` 模式。
+- 默认 prompt-first：先输出 brief，再询问是否执行。用户可以在请求里显式声明 `prompt-only`、`review-only`、`plan-only`、`prd-only`、`brainstorm` 或 `goal` 模式。
 
 ## 目录结构
 
@@ -52,6 +52,7 @@ promptify/
     promptify/
       SKILL.md
       shared/
+        brainstorm.md
         brief-standard.md
         context-discovery.md
         evolution-loop.md
@@ -61,6 +62,7 @@ promptify/
         task-routing.md
         test-plan.md
         templates/
+          brainstorm.md
           bugfix.md
           data-analysis.md
           docs.md
@@ -101,10 +103,11 @@ ln -s ~/promptify/skills/promptify ~/.claude/skills/promptify
 promptify：当前改动 review 一下
 promptify：把当前讨论整理成 PRD
 promptify：支持团队模板覆盖的实现计划
+promptify：帮我想想怎么做团队知识库，还没想清楚
 promptify：把 docs/superpowers/plans/2026-05-13-promptify-mvp.md 跑成 long-running goal
 ```
 
-skill 会先生成紧凑 brief，再询问是否执行；PRD 模式会直接生成 PRD 并停止。
+skill 会先生成紧凑 brief，再询问是否执行；PRD 模式会直接生成 PRD 并停止；头脑风暴模式会先用对话澄清想法，设计被认可后再提供后续产物选项。
 
 ## 示例
 
@@ -122,6 +125,7 @@ promptify prd-only：把“团队模板覆盖”整理成 PRD
 promptify：删除旧权限表和迁移脚本
 promptify goal：按 docs/plans/cache-cleanup.md 持续推进
 promptify handoff：换个会话继续刚才的任务
+promptify：帮我头脑风暴一下评审分配方案
 ```
 
 ### Bugfix
@@ -420,6 +424,34 @@ Stop if:
 - A destructive or scope-expanding change is required — stop and ask first.
 ```
 
+### 头脑风暴
+
+输入：
+
+```text
+promptify：帮我想想怎么做评审分配，还没想清楚
+```
+
+skill 会一次只问一个聚焦问题（目的、受众、约束、成功标准），并把它的理解写回给你确认——分清哪些是你说的、哪些是它的假设。按规模分档后，输出会类似：
+
+```text
+规模档位：有界（评审流程已存在于仓库）。
+
+理解确认：
+你说的是：多人同时抢同一个 PR 评审，导致重复劳动。
+我的假设：目标是站内排队分配，不引入外部工具。
+
+设计：
+方案 A：在现有评审队列上加认领锁，改动最小（推荐，符合 YAGNI）。
+方案 B：新增轮询分配服务，公平但引入新组件。
+涉及文件：src/review/queue.ts、tests/review/queue.test.ts。
+测试：认领冲突、释放、超时回收。
+
+设计门禁：确认这个设计后，可转成 brief 执行，或整理成 plan / PRD。
+```
+
+设计门禁通过前不会有任何实现动作；发现隐藏复杂度（如需要新服务）会停下升级为架构级，给出 2-3 个方案及权衡再确认。
+
 ## 支持的任务类型
 
 | 任务 | 模板 |
@@ -438,6 +470,7 @@ Stop if:
 | Plan | `skills/promptify/shared/templates/plan.md` |
 | Goal prompt | `skills/promptify/shared/templates/goal.md` |
 | 会话交接（换会话续跑） | `skills/promptify/shared/templates/handoff.md` |
+| 头脑风暴（想法转设计） | `skills/promptify/shared/templates/brainstorm.md` |
 
 ## 安全规则
 

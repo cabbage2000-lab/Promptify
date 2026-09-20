@@ -17,12 +17,14 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | 文档, README, 注释, docs | docs | `templates/docs.md` |
 | PRD, 产品需求, 需求文档, product requirement | prd | `templates/prd.md` |
 | 规划, 方案, 设计, plan | plan | `templates/plan.md` |
+| 头脑风暴, 帮我想想, 我有个想法, 想做个但不确定, 探讨一下思路, brainstorm, explore an idea | brainstorm | `templates/brainstorm.md` |
 | /goal, goal, 长跑任务, 持久目标, 持续执行, 直到完成 | goal prompt | `templates/goal.md` |
 | 会话交接, 换会话继续, 换个窗口继续, 断点续跑, 上下文交接, context handoff, continue in new session, resume work | handoff | `templates/handoff.md` |
 
 数据分析专指理解数据、产出洞察；看代码/审查/PR 走 review，实现数据看板/指标管道/ETL 走 feature。
 进化优化（evolve）专指"有显式评估指标、需多代评分循环"的优化；一次性结构整理或无指标的"优化一下"走 refactor 或通用 task，单 agent 长跑契约走 goal。
 会话交接（handoff）专指"承接当前会话进度、生成可粘贴到新会话的续跑 prompt"；从零定义持久长跑目标走 goal，整理需求文档走 prd。
+头脑风暴（brainstorm）专指"想法还不成形、需要对话澄清后再产出设计"；目标、范围和验收已明确的需求走 feature 等具体任务类型，已讨论完要整理成文档走 prd，已定方案要排阶段走 plan。
 
 ## Priority
 
@@ -51,4 +53,6 @@ Promptify classifies short user input with lightweight keyword and intent cues.
 | `/promptify 给设置页草几个设计` | prototype (UI) | guided prompt-first |
 | `/promptify 分析下上周的留存数据` | data analysis | guided prompt-first |
 | `/promptify 把这个分类 prompt 的准确率优化到 90%` | evolve | guided prompt-first |
+| `/promptify 帮我头脑风暴一下缓存方案` | brainstorm | brainstorm |
+| `/promptify 我有个想法，想给团队做个小工具，但还没想清楚` | brainstorm | brainstorm |
 | `/promptify 优化一下这个模块` | generic task | guided prompt-first or clarification |

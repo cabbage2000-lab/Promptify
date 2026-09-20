@@ -104,6 +104,11 @@ Handoff (session continuation):
 - Do not read broadly; the goal is to confirm what actually happened, not to re-discover the project.
 - Carry concrete files, commands, decisions, and the stopping point into the prompt; keep `Progress so far` strictly factual.
 
+Brainstorm (vague idea):
+- Read the project's current state first (files, docs, recent changes) to classify the scale tier: whether the flow to change already exists in this repository decides bounded versus architectural.
+- Keep discovery read-only and narrow; the goal is enough context for tier classification and focused questions, not a repository survey.
+- Read `shared/brainstorm.md` for the consensus loop and design gate before asking questions or drafting any design.
+
 Generic task:
 - Find enough context to confirm the most likely task type. If the goal remains
   ambiguous, generate one focused clarification question instead of inventing a

@@ -30,6 +30,11 @@ Promptify can also generate PRDs. PRDs are not compact briefs and do not enter
 execution; they synthesize current conversation and minimal project context into
 a product requirement document.
 
+Promptify can also run brainstorm sessions. A brainstorm session is not a
+compact brief and does not start from a template; it turns a vague idea into
+an agreed design through a structured conversation, then hands that design
+back to PRD, plan, brief, or bounded execution.
+
 ## Compression Rules
 
 - Prefer 4 compact blocks: goal, mode, context, and requirements.
@@ -100,6 +105,13 @@ PRD-only mode:
 - Otherwise record uncertainty under assumptions, open questions, or further notes.
 - Produce the PRD from `shared/templates/prd.md` and stop.
 - Do not publish to an issue tracker, apply labels, edit code, or continue into implementation.
+
+Brainstorm mode:
+- Use when the user gives a vague idea with no clear goal, scope, or success criterion, or explicitly asks to brainstorm or explore an idea first.
+- Run the consensus loop, scale-tier classification, and design gate from `shared/brainstorm.md`; ask one focused question at a time and reflect understanding back before designing.
+- Do not generate a compact brief from an unagreed idea; do not edit files or run execution commands before the design gate is satisfied.
+- Stop at the agreed design and offer the handoff options: prd-only, plan-only, a prompt-first brief, or direct execution of a bounded design.
+- High-risk signals in the agreed design still route through analysis-first handling.
 
 Goal-prompt mode:
 - Use for `/promptify:goal <long-running task>`, `promptify goal: <long-running task>`, or direct requests to turn an intent into a `/goal` prompt.

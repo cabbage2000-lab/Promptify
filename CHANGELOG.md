@@ -6,6 +6,13 @@ Promptify uses this file as the canonical version record. Versions follow SemVer
 - MINOR: new templates, modes, or notable workflow behavior.
 - MAJOR: breaking layout or behavior changes.
 
+## 0.6.0 - 2026-09-20
+
+### Added
+
+- Added the `brainstorm` task type, porting the collaborative design loop of the Superpowers brainstorming skill (obra/superpowers) into Promptify's markdown-only boundaries. The new `skills/promptify/shared/brainstorm.md` contract defines a consensus loop (one focused question at a time, reflecting understanding back while separating user statements from assumptions), scale tiers (spike with throwaway output, bounded for small changes to flows that already exist in the repository, architectural with 2-3 options and sectioned review), a design gate (no implementation action before the tier's approval; approval covers only the step it was given for; tiers upgrade, never downgrade), a design self-review for architectural work, and anti-patterns. The session stops at the agreed design and hands back into Promptify's own outputs: `prd-only`, `plan-only`, a prompt-first brief, or direct execution of a bounded design.
+- Added a `brainstorm` mode; added the `skills/promptify/shared/templates/brainstorm.md` template; added brainstorm routing cues, a disambiguation note, and examples to `skills/promptify/shared/task-routing.md`; added a Brainstorm mode section and a non-compact-brief note to `skills/promptify/shared/brief-standard.md`; added Brainstorm mode, Consensus loop, Scale tier, and Design gate terms to `skills/promptify/shared/glossary.md`; added a Brainstorm (vague idea) entry to `skills/promptify/shared/context-discovery.md`; recorded ADR 0005 (add brainstorm task type), which also documents what was deliberately not ported from Superpowers (visual companion browser tooling, fixed spec file paths with mandatory commits, chaining into an external planning skill); and registered the template across `SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `README.md`, and `README.zh-CN.md`.
+
 ## 0.5.0 - 2026-06-18
 
 ### Added

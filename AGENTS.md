@@ -18,9 +18,10 @@ The repository must not contain a runtime service, web UI, database, telemetry, 
 - `skills/promptify/shared/safety.md`: High-risk signals, safety levels, confirmation behavior.
 - `skills/promptify/shared/context-discovery.md`: Minimal-context exploration rules.
 - `skills/promptify/shared/evolution-loop.md`: SIA-style generational loop contract for the evolve task type.
+- `skills/promptify/shared/brainstorm.md`: Consensus loop, scale tiers, and design gate contract for the brainstorm task type.
 - `skills/promptify/shared/template-authoring.md`: Rules for creating and editing compact templates.
 - `skills/promptify/shared/test-plan.md`: Manual QA checklist source.
-- `skills/promptify/shared/templates/*.md`: Templates for task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal, handoff.
+- `skills/promptify/shared/templates/*.md`: Templates for task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal, handoff, brainstorm.
 - `docs/adr/`: Architectural decision records for product boundaries and durable design decisions.
 - `docs/out-of-scope/`: Rationale for product directions Promptify intentionally does not support.
 - `README.md`, `README.zh-CN.md`: User-facing installation, usage, safety, QA, limitations.
@@ -44,6 +45,7 @@ The repository must not contain a runtime service, web UI, database, telemetry, 
 - High-risk or destructive work must start with analysis and require explicit confirmation before edits.
 - For review-only and plan-only modes, do not imply files were changed unless edits were explicitly requested later.
 - For prd-only mode, produce the PRD and stop without publishing to an issue tracker or entering implementation.
+- For brainstorm mode, run the consensus loop and design gate from `skills/promptify/shared/brainstorm.md`; do not edit files or run execution commands before the design gate is satisfied.
 
 ## Verification
 

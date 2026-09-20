@@ -19,8 +19,9 @@ Key files:
 - `skills/promptify/shared/safety.md`: Safety levels, high-risk signals, and confirmation behavior.
 - `skills/promptify/shared/context-discovery.md`: Minimal-context exploration rules.
 - `skills/promptify/shared/evolution-loop.md`: SIA-style generational loop contract for the evolve task type (role mapping, artifact layout, workflow script contract, guardrails).
+- `skills/promptify/shared/brainstorm.md`: Consensus loop, scale tiers, and design gate contract for the brainstorm task type.
 - `skills/promptify/shared/template-authoring.md`: Rules for creating and editing compact templates.
-- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal, handoff).
+- `skills/promptify/shared/templates/*.md`: Core workflow templates (task, bugfix, feature, prototype, data analysis, evolve, refactor, test, review, docs, plan, PRD, goal, handoff, brainstorm).
 - `docs/adr/`: Architectural decision records for product boundaries and durable design decisions.
 - `docs/out-of-scope/`: Rationale for product directions Promptify intentionally does not support.
 
@@ -42,6 +43,7 @@ Key files:
   - prd-only: produce the PRD and stop; do not publish to an issue tracker.
   - goal: produce only the goal block from `skills/promptify/shared/templates/goal.md` and stop.
   - handoff: produce only the handoff prompt from `skills/promptify/shared/templates/handoff.md` and stop.
+  - brainstorm: run the consensus loop and design gate from `skills/promptify/shared/brainstorm.md`; stop at the agreed design and offer the prd/plan/brief/execution handoff.
   - analysis-first: auto-enforced on high-risk signals.
 
 ## Safety Rules

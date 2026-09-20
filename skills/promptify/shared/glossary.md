@@ -46,6 +46,19 @@ _Avoid_: session export, full transcript, checkpoint file.
 **Handoff-prompt mode**:
 A mode that outputs only a handoff prompt and stops. It reviews current session history and does minimal read-only project discovery, but does not edit files or continue into execution. It is the session-continuation counterpart to goal-prompt mode.
 
+**Brainstorm mode**:
+A mode that turns a vague idea into an agreed design through a structured conversation before any brief, PRD, or plan is generated. It runs the consensus loop, classifies work into scale tiers, and enforces the design gate. Defined in `shared/brainstorm.md`.
+_Avoid_: broad interview, requirements dump.
+
+**Consensus loop**:
+The three-step alignment cycle in brainstorm mode: discover intent with one focused question at a time, reflect understanding back while separating user statements from assumptions, and carry the agreed intent into every later design choice.
+
+**Scale tier**:
+The brainstorm-mode classification of a piece of work: spike (feasibility probe with throwaway output), bounded (small change to a flow that already exists in the repository, designed in conversation), or architectural (new project, new subsystem, or changed interface relationships, designed in full). Tiers upgrade mid-flight, never downgrade.
+
+**Design gate**:
+The confirmation requirement in brainstorm mode: no implementation action before the user approves the design required by the selected scale tier. Approval covers only the step it was given for; each following step needs its own approval.
+
 **PRD**:
 A product requirement document synthesized from current conversation and minimal project context. It describes the problem, solution, user stories, implementation decisions, testing decisions, out of scope, and open notes. It is not an execution plan and does not publish to an issue tracker.
 
@@ -87,3 +100,4 @@ _Avoid_: vague success language such as "make it work".
 - PRD mode turns current context into a product requirement document and stops before implementation.
 - The evolution loop turns a confirmed evolve brief into a generational optimization run driven by its evaluation contract.
 - Handoff-prompt mode compresses current session progress into a paste-ready continuation prompt for a fresh window; it is the session-continuation counterpart to goal-prompt mode.
+- Brainstorm mode turns a vague idea into an agreed design; the approved design becomes the input to PRD, plan, or brief generation, or to bounded execution.
