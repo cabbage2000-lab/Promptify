@@ -195,7 +195,7 @@ Mode:
 Generate the brief first and ask whether to enter execution.
 
 Context:
-Detect and reuse the project's existing stack first — the UI framework and its router API, the component library, the styling system, and the routing convention — then locate the settings page and the data available to it.
+Detect and reuse the project's existing stack first — the UI framework and its router API, the component library, the styling system, and the routing convention — then locate the settings page and the data available to it. If the project has no established stack, default to the preferred one: Next.js/React + TypeScript + Tailwind CSS + shadcn/ui; React Hooks first (Zustand only for complex state, React Query for server state); MSW + Faker.js with fixed seed data for mocks; Recharts for charts (ECharts only for complex visualization).
 
 Requirements:
 Build 3 structurally different variants (different layout, hierarchy, and primary affordance — not just colors), named VariantA/VariantB/VariantC and switchable on one route via ?variant= with a floating switcher (arrow keys, URL-updating, hidden in production). Keep it throwaway: no persistence, no real mutations, no tests. Report the access URL and ?variant= keys, the winning variant, and the delete-or-absorb recommendation.

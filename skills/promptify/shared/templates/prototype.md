@@ -12,7 +12,7 @@
 先生成高质量 brief 并询问是否进入执行阶段；触及真实数据写入或生产配置等高风险信号时先分析并确认。
 
 上下文：
-按 `shared/context-discovery.md` 做最小必要发现，重点摸清项目既有技术栈并沿用，不另起炉灶：UI 框架（Next / React Router / Vue / SvelteKit 等）、组件库与样式系统（TailwindCSS / shadcn / MUI / 纯 CSS 等）、路由约定、可承载变体的现有页面及该页可用数据。默认嵌入现有页面而非新建路由。
+按 `shared/context-discovery.md` 做最小必要发现，重点摸清项目既有技术栈并沿用，不另起炉灶：UI 框架（Next / React Router / Vue / SvelteKit 等）、组件库与样式系统（TailwindCSS / shadcn / MUI / 纯 CSS 等）、路由约定、可承载变体的现有页面及该页可用数据。默认嵌入现有页面而非新建路由。项目无既有技术栈或用户未指定时，按优先技术栈补齐：前端 Next.js / React + TypeScript + Tailwind CSS + shadcn/ui；交互优先 React Hooks，复杂状态再引入 Zustand，服务端状态用 React Query / TanStack Query；Mock 用 MSW 拦截请求、Faker.js 生成数据、固定 Seed Data 保证刷新可复现；图表用 Recharts，复杂数据可视化再用 ECharts。选定后即视为本项目栈，同样不另起炉灶。
 
 要求：
-默认 3 个变体（上限 5），各变体须结构迥异（布局、信息层级、主操作不同），而非仅换色。所有变体与切换栏一律复用项目既有组件库与样式系统，禁止引入新框架、新 UI 库或新包管理器。各变体写成命名导出组件（如 `VariantA`/`VariantB`/`VariantC`），在单一路由经 `?variant=` 切换。浮动切换栏要点：用框架自带路由 API 改写 URL（如 Next 的 `router.replace`、React Router 的 `navigate`）使变体可分享、可刷新复现；支持 `←`/`→` 切换，但 `input`/`textarea`/`[contenteditable]` 聚焦时不拦截；视觉上明显区别于被评估页面；生产构建中隐藏（`process.env.NODE_ENV !== 'production'` 或等价判断）。原型自始即一次性并显式标记；默认不持久化、不接真实写操作、跳过测试与抽象；每次切换变体后完整呈现该变体。最终汇报：在回答什么问题、访问方式与 `?variant=` 键、胜出变体及"删除或吸收"的处置建议。
+默认 3 个变体（上限 5），各变体须结构迥异（布局、信息层级、主操作不同），而非仅换色。所有变体与切换栏一律复用项目既有组件库与样式系统（无既有栈时按上述优先技术栈），禁止引入新框架、新 UI 库或新包管理器。各变体写成命名导出组件（如 `VariantA`/`VariantB`/`VariantC`），在单一路由经 `?variant=` 切换。浮动切换栏要点：用框架自带路由 API 改写 URL（如 Next 的 `router.replace`、React Router 的 `navigate`）使变体可分享、可刷新复现；支持 `←`/`→` 切换，但 `input`/`textarea`/`[contenteditable]` 聚焦时不拦截；视觉上明显区别于被评估页面；生产构建中隐藏（`process.env.NODE_ENV !== 'production'` 或等价判断）。变体数据优先复用页面既有数据，不足时用 MSW + Faker.js mock 并固定 seed，保证刷新可复现。原型自始即一次性并显式标记；默认不持久化、不接真实写操作、跳过测试与抽象；每次切换变体后完整呈现该变体。最终汇报：在回答什么问题、访问方式与 `?variant=` 键、胜出变体及"删除或吸收"的处置建议。

@@ -193,7 +193,7 @@ promptify：给设置页草几个布局设计看看
 先生成 brief 并询问是否进入执行阶段。
 
 上下文：
-优先摸清并沿用项目既有技术栈——UI 框架及其路由 API、组件库、样式系统、路由约定，再定位设置页及其可用数据。
+优先摸清并沿用项目既有技术栈——UI 框架及其路由 API、组件库、样式系统、路由约定，再定位设置页及其可用数据。项目无既有技术栈时，默认优先：Next.js / React + TypeScript + Tailwind CSS + shadcn/ui；交互优先 React Hooks（复杂状态再上 Zustand，服务端状态用 React Query）；Mock 用 MSW + Faker.js（固定 seed）；图表用 Recharts（复杂可视化再上 ECharts）。
 
 要求：
 做 3 个结构迥异的变体（布局、信息层级、主操作不同，而非仅换色），命名 VariantA/VariantB/VariantC，在单一路由经 ?variant= 切换并配浮动切换栏（方向键、改写 URL、生产构建隐藏）。保持一次性：不持久化、不接真实写操作、不加测试。最终汇报访问地址与 ?variant= 键、胜出变体，以及“删除或吸收”的处置建议。
